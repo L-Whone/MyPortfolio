@@ -342,7 +342,7 @@
                   width: 100%;
               }
 
-                  .media img, .media video {
+                  .media img, .media video .iframe {
                       width: 100%;
                       aspect-ratio: 16/9;
                       object-fit: cover;
@@ -688,7 +688,12 @@
                         </div>-->
 
                         <figure class="media">
-                            <iframe src="https://www.youtube.com/watch?v=C3mWOifDKh4">
+                            <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
+                                    title="A short trailer of the game"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                    loading="lazy">
                             </iframe>
                             <figcaption>A short trailer of the game</figcaption>
                         </figure>
