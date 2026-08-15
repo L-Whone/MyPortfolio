@@ -827,14 +827,20 @@
 
                             <div class="block">
                                 <h4>The Problem</h4>
-                                <p>When opening multiple menus in game, and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu the cursor would disappear on the Death Screen, soft locking the player.</p>
+                                <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
                             </div>
 
                             <div class="block">
                                 <h4>The Approach</h4>
-                                <p>To solve this problem, I worked backwards and tried to find out why the problem was happening. I looked through the code to find where all of the menus were enabled. From looking at the code, I figured out that how the cursor was handled was different and separate for each menu. Each menu switched the player’s input map to “UI” and enabled the cursor when opened, and switched the player’s input map to “Player” and disabled the cursor when closed. This meant that if a menu was open on top of another, closing the top menu would result in the Input Map being switched to “Player” and the cursor disappearing even though the player still has a menu open.</p>
-                                <p>My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity.</p>
-                                <p>My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.</p>
+                                <p>
+                                    To solve this, I worked backward and traced the issue to how each menu handles cursor and input states independently. Opening any menu switched the input map to "UI" and enabled the cursor, closing it set the map back to "Player" and disabled the cursor. Consequently, if a user closed a top menu while a lower menu remained open, the input map still reverted to "Player" and hid the cursor even though the user was still technically in a menu.
+                                </p>
+                                <p>
+                                    My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity. The biggest problems in my mind were, if there were other input map states that needed to be accounted for, or if the player needed to move while in a menu for whatever reason.
+                                </p>
+                                <p>
+                                    My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.
+                                </p>
                             </div>
 
                             <!--<figure class="media">
@@ -850,7 +856,7 @@
                             <div class="block">
                                 <h4>The Result</h4>
                                 <p>
-                                    This system allowed the menus to stay decoupled and was a more flexible system for switching the player’s Input Maps, because it was all consolidated in one area and could be used in areas other than menus. For each Input Map I could also have specific logic be implemented when switched to, and in this case, that fixed the cursor disabling problem: when the player’s Input Map is switched to “UI” enable the cursor and show it. If the Map is switched to “Player” disable the cursor and hide it.
+                                    By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
                                 </p>
                             </div>
 
@@ -900,19 +906,37 @@
                         </summary>
                         <div class="case-study">
 
-                            <!--<div class="block">
-                          <h4>The Problem</h4>
-                          <p>I interviewed fourteen hikers who'd gotten lost or turned back on a marked trail. Every one of them had a wayfinding app installed. None of them could open it when it actually mattered, because it assumed a signal that mountains rarely provide.</p>
-                        </div>-->
-                            <!--<div class="block">
-                          <h4>The Approach</h4>
-                          <p>The core decision was to design the download flow like packing a bag, not installing software. You choose a route the night before, and the app tells you exactly what's stored and what isn't before you lose signal, not after.</p>
-                          <p>We cut every feature that couldn't work fully offline, including a few the stakeholders liked most.</p>
-                        </div>-->
-                            <!--<div class="block">
-                          <h4>The Result</h4>
-                          <p>Northbound shipped to three regional parks associations in its first year. In a post-trip survey, the number that mattered most was how many people finished their route without needing to ask anyone for help.</p>
-                        </div>-->
+                            <div class="block">
+                                <h4>The Problem</h4>
+                                <p>
+                                    Accessing garbage data cleanly and iteratively was inefficient and restrictive. Based on the type of garbage, I had to use an if-else chain or a switch statement every time I wanted to access data for a specific piece of waste, creating hard-to-maintain code for data that should have been tied together naturally.
+                                </p>
+                            </div>
+
+                            <div class="block">
+                                <h4>The Approach</h4>
+                                <p>
+                                    To solve this problem, I wanted to find a way to access data cleanly without relying on long conditional chains.
+                                </p>
+                                <p>
+                                    My first idea was to use the Garbage class that was already created, but that introduced problems with how we handled picking up garbage. When a player collected garbage by shooting it, the GameObject holding the Garbage class was destroyed. This meant we couldn't store references to the garbage objects in an array, as those references would be destroyed along with the garbage.
+                                </p>
+                                <p>
+                                    My second idea was to pivot to a count system using individual variables for each waste type
+                                    (int organicCount, int recyclableCount, int nonRecyclableCount).
+                                    But this solution didn't sit right with me. Trying to access any data this way still required a condition for every type of garbage in the game, forcing long switch cases or chains of if-else statements.
+                                </p>
+                                <p>
+                                    Since we already had a WasteType enum for the three garbage categories, I wanted a quick, scalable way to access the count data directly using that enum. To achieve this, I replaced the standalone variables with a Dictionary Lookup Table that mapped each WasteType enum key to its corresponding integer count value.
+                                </p>
+                            </div>
+
+                            <div class="block">
+                                <h4>The Result</h4>
+                                <p>
+                                    The result of this lookup table was that accessing count data became much cleaner and more efficient throughout the entire project. All I had to do was pass the WasteType into the dictionary to retrieve or update the count. I loved the ease of Lookup Table’s that I ended up refining and using it in future projects (see Hand To Hand Wizardry Case Study 2).
+                                </p>
+                            </div>
 
                             <div class="project-links">
                                 <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
@@ -922,6 +946,7 @@
                 </article>
 
                 <!-- PROJECT 03 -->
+                <!--
                 <article class="project">
                     <div class="project-head">
                         <span class="p-index">03</span>
@@ -959,10 +984,10 @@
                             <span class="toggle">+</span>
                         </summary>
                         <div class="case-study">
-                            <!--<div class="block">
+                            <div class="block">
                           <h4>The Problem</h4>
                           <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
-                        </div>-->
+                        </div>
 
                             <figure class="media">
                                 <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
@@ -975,15 +1000,15 @@
                                 <figcaption>A short trailer of the game</figcaption>
                             </figure>
 
-                            <!--<div class="block">
+                            <div class="block">
                           <h4>The Approach</h4>
                           <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
                           <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
-                        </div>-->
-                            <!--<div class="block">
+                        </div>
+                            <div class="block">
                           <h4>The Result</h4>
                           <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
-                        </div>-->
+                        </div>
 
                             <div class="project-links">
                                 <a href="#" target="_blank">Visit Itch Page ↗</a>
@@ -991,6 +1016,7 @@
                         </div>
                     </details>
                 </article>
+                -->
 
             </div>
         </div>
