@@ -102,10 +102,13 @@
                   font-size: 1.15rem;
                   color: var(--paper);
                   letter-spacing: 0.01em;
+                  white-space: nowrap;
+                  flex: none;
               }
 
               .navlinks {
                   display: flex;
+                  flex: none;
                   gap: 36px;
               }
 
@@ -132,15 +135,17 @@
 
                   #about .wrap {
                       display: grid;
-                      grid-template-columns: 180px 1fr;
-                      gap: 300px;
+                      grid-template-columns: 240px 1fr;
+                      gap: 64px;
                       align-items: start;
                   }
 
               .monogram {
-                  width: 350px;
-                  height: 350px;
+                  width: 240px;
+                  height: 240px;
+                  flex: none;
                   border: 1px solid var(--tan);
+                  overflow: hidden;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -148,6 +153,13 @@
                   font-size: 2.4rem;
                   color: var(--tan);
               }
+
+                  .monogram img {
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      display: block;
+                  }
 
               #about .eyebrow {
                   color: var(--tan);
@@ -180,30 +192,135 @@
                       margin-bottom: 0;
                   }
 
-              /* ---------- WORK ---------- */
-              #work {
-                  padding-top: 110px;
-                  padding-bottom: 100px;
+              .about-actions {
+                  display: flex;
+                  gap: 16px;
+                  flex-wrap: wrap;
+                  margin-top: 36px;
               }
 
-                  #work .eyebrow {
+              .btn {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  font-family: var(--mono);
+                  font-size: 0.75rem;
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  padding: 14px 26px;
+                  border: 1px solid var(--tan);
+                  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+              }
+
+              .btn-primary {
+                  background: var(--tan);
+                  color: var(--coffee-deep);
+              }
+
+                  .btn-primary:hover {
+                      background: var(--paper);
+                      border-color: var(--paper);
+                  }
+
+              .btn-secondary {
+                  color: var(--paper);
+                  border-color: rgba(250,250,247,0.4);
+              }
+
+                  .btn-secondary:hover {
+                      border-color: var(--paper);
+                  }
+
+              /* ---------- SHARED SECTION HEADER (Experience / Projects) ---------- */
+              .section-head {
+                  margin-bottom: 56px;
+              }
+
+                  .section-head .eyebrow {
                       color: var(--muted);
                       margin-bottom: 8px;
                   }
 
-                  #work h2 {
+                  .section-head h2 {
                       font-family: var(--serif);
                       font-weight: 400;
                       font-size: clamp(1.9rem, 2.4vw + 1rem, 2.5rem);
                       margin-bottom: 16px;
                   }
 
-                  #work > .wrap > p {
+                  .section-head p {
                       max-width: 56ch;
                       color: var(--muted);
                       font-size: 0.95rem;
-                      margin-bottom: 56px;
                   }
+
+              /* ---------- EXPERIENCE ---------- */
+              #experience {
+                  padding-top: 110px;
+                  padding-bottom: 90px;
+              }
+
+              .exp-list {
+                  border-top: 1px solid var(--line);
+                  border-bottom: 1px solid var(--line);
+              }
+
+              .exp-item {
+                  display: grid;
+                  grid-template-columns: 160px 1fr;
+                  gap: 24px;
+                  padding: 32px 0;
+              }
+
+              .exp-item + .exp-item {
+                  border-top: 1px solid var(--line);
+              }
+
+              .exp-when {
+                  font-family: var(--mono);
+                  font-size: 0.75rem;
+                  letter-spacing: 0.04em;
+                  color: var(--muted);
+                  padding-top: 4px;
+              }
+
+              .exp-role {
+                  font-family: var(--serif);
+                  font-size: 1.2rem;
+                  margin-bottom: 2px;
+              }
+
+              .exp-org {
+                  font-size: 0.92rem;
+                  color: var(--muted);
+                  margin-bottom: 14px;
+              }
+
+              .exp-points {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 6px;
+              }
+
+                  .exp-points li {
+                      font-size: 0.92rem;
+                      line-height: 1.6;
+                      padding-left: 16px;
+                      position: relative;
+                  }
+
+                      .exp-points li::before {
+                          content: "–";
+                          position: absolute;
+                          left: 0;
+                          color: var(--muted);
+                      }
+
+              /* ---------- PROJECTS ---------- */
+              #projects {
+                  padding-top: 90px;
+                  padding-bottom: 100px;
+              }
 
               .project-list {
                   border-top: 1px solid var(--line);
@@ -214,29 +331,11 @@
                   border-top: 1px solid var(--line);
               }
 
-              /* Sticky project header: stays pinned below the nav while its own
-           content scrolls past, then releases once you scroll past the
-           whole <details> block (title + case study together). */
-              .project summary {
-                  list-style: none;
+              .project-head {
                   display: flex;
                   align-items: center;
                   gap: 24px;
-                  padding: 30px 0;
-                  cursor: pointer;
-                  position: sticky;
-                  top: var(--nav-h);
-                  z-index: 10;
-                  background: var(--paper);
-                  border-bottom: 1px solid var(--line);
-              }
-
-                  .project summary::-webkit-details-marker {
-                      display: none;
-                  }
-
-              .project[open] summary {
-                  padding: 22px 0;
+                  padding: 30px 0 24px;
               }
 
               .p-index {
@@ -267,6 +366,7 @@
               .p-tags {
                   display: flex;
                   gap: 8px;
+                  flex-wrap: wrap;
                   flex: none;
               }
 
@@ -279,18 +379,78 @@
                       color: var(--muted);
                       white-space: nowrap;
                   }
-              /* Once open, collapse the tagline/tags so the pinned bar stays compact
-           while you're reading — just the title and the close button. */
-              /*  .project[open] .p-tagline,
-        .project[open] .p-tags{
-          display:none;
-        }*/
+
+              /* ---------- PROJECT META (always visible) ---------- */
+              .project-meta {
+                  border-top: 1px solid var(--line);
+                  padding: 24px 0 28px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 22px;
+              }
+
+              .meta-what p {
+                  font-size: 0.95rem;
+                  line-height: 1.65;
+                  color: var(--ink);
+                  max-width: 700px;
+              }
+
+              .meta-grid {
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 24px;
+              }
+
+              .meta-what h5,
+              .meta-block h5 {
+                  font-family: var(--mono);
+                  font-size: 0.66rem;
+                  letter-spacing: 0.1em;
+                  text-transform: uppercase;
+                  color: var(--muted);
+                  margin-bottom: 8px;
+              }
+
+              .meta-block p {
+                  font-size: 0.92rem;
+                  line-height: 1.55;
+                  color: var(--ink);
+              }
+
+              /* ---------- CASE STUDY TOGGLE ---------- */
+              .case-toggle summary {
+                  list-style: none;
+                  display: flex;
+                  align-items: center;
+                  gap: 16px;
+                  padding: 18px 0;
+                  cursor: pointer;
+                  position: sticky;
+                  top: var(--nav-h);
+                  z-index: 10;
+                  background: var(--paper);
+                  border-top: 1px solid var(--line);
+              }
+
+                  .case-toggle summary::-webkit-details-marker {
+                      display: none;
+                  }
+
+              .cs-label {
+                  flex: 1;
+                  font-family: var(--mono);
+                  font-size: 0.72rem;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                  color: var(--ink);
+              }
+
               .toggle {
                   flex: none;
                   width: 30px;
                   height: 30px;
                   border: 1px solid var(--ink);
-                  border-radius: 50%;
                   display: flex;
                   align-items: center;
                   justify-content: center;
@@ -299,24 +459,18 @@
                   transition: transform 0.2s ease;
               }
 
-              .project[open] .toggle {
+              .case-toggle[open] .toggle {
                   transform: rotate(45deg);
               }
 
               /* ---------- CASE STUDY (expanded content) ---------- */
               .case-study {
-                  padding: 8px 0 64px 48px;
+                  padding: 8px 0 56px;
                   max-width: 640px;
                   display: flex;
                   flex-direction: column;
                   gap: 32px;
               }
-
-                  .case-study .lede {
-                      font-size: 1.02rem;
-                      line-height: 1.65;
-                      color: var(--ink);
-                  }
 
                   .case-study .block h4 {
                       font-family: var(--mono);
@@ -358,28 +512,6 @@
                       margin-top: 8px;
                       line-height: 1.5;
                   }
-
-              .stat-row {
-                  display: flex;
-                  gap: 40px;
-                  flex-wrap: wrap;
-                  padding: 4px 0;
-              }
-
-              .stat .num {
-                  font-family: var(--serif);
-                  font-size: 1.7rem;
-                  line-height: 1;
-                  margin-bottom: 6px;
-              }
-
-              .stat .label {
-                  font-family: var(--mono);
-                  font-size: 0.66rem;
-                  letter-spacing: 0.05em;
-                  text-transform: uppercase;
-                  color: var(--muted);
-              }
 
               .project-links {
                   display: flex;
@@ -511,7 +643,21 @@
                       font-size: 1.7rem;
                   }
 
-                  .project summary {
+                  .about-actions {
+                      width: 100%;
+                  }
+
+                      .about-actions .btn {
+                          flex: 1;
+                          justify-content: center;
+                      }
+
+                  .exp-item {
+                      grid-template-columns: 1fr;
+                      gap: 8px;
+                  }
+
+                  .project-head {
                       flex-wrap: wrap;
                       row-gap: 12px;
                   }
@@ -521,10 +667,32 @@
                       width: 100%;
                   }
 
+                  .meta-grid {
+                      grid-template-columns: 1fr;
+                  }
+
                   .case-study {
-                      padding-left: 0;
                       max-width: none;
                   }
+              }
+
+              @media (max-width:400px) {
+                  nav .wrap {
+                      padding: 0 16px;
+                  }
+
+                  .wordmark {
+                      font-size: 1rem;
+                  }
+
+                  .navlinks {
+                      gap: 12px;
+                  }
+
+                      .navlinks a {
+                          font-size: 0.6rem;
+                          letter-spacing: 0.06em;
+                      }
               }
     </style>
 </head>
@@ -535,7 +703,8 @@
             <span class="wordmark">Vi Tran</span>
             <div class="navlinks">
                 <a href="#about">About</a>
-                <a href="#work">Work</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -544,7 +713,7 @@
     <section id="about">
         <div class="wrap">
             <div class="monogram">
-                <img src="resources/Me.jpg"/>
+                <img src="resources/Me.jpg" alt="Portrait of Vi Tran"/>
             </div>
             <div>
                 <p class="eyebrow">About</p>
@@ -552,56 +721,123 @@
                 <p class="role">Gameplay Engineer</p>
                 <p>I love solving problems in a structured manner: clean, easy to use, with room for extension. I strive to build solutions that explains itself so that everyone has the easiest time when working with it (especially me).</p>
                 <p>I am currently looking for a role as a Gameplay Engineer. Have a look at my stuff !</p>
+                <div class="about-actions">
+                    <a class="btn btn-primary" href="resume.pdf" download>Download Résumé</a>
+                    <a class="btn btn-secondary" href="#contact">Contact Me</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="work">
+    <section id="experience">
         <div class="wrap">
-            <p class="eyebrow">Selected Work</p>
-            <h2>Projects</h2>
-            <p>A few projects I can talk about at length. Each one opens into a short case study. Click the title or the circle to expand it.</p>
+            <div class="section-head">
+                <p class="eyebrow">Career</p>
+                <h2>Experience</h2>
+                <p>Where I've worked and what I focused on while I was there.</p>
+            </div>
+
+            <!-- Swap these placeholders for your real work history before publishing -->
+            <div class="exp-list">
+                <div class="exp-item">
+                    <div class="exp-when">[Start Date] –<br>[End Date]</div>
+                    <div>
+                        <div class="exp-role">[Role Title]</div>
+                        <div class="exp-org">[Studio / Company Name]</div>
+                        <ul class="exp-points">
+                            <li>[What you owned or shipped]</li>
+                            <li>[A concrete result or responsibility]</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-when">[Start Date] –<br>[End Date]</div>
+                    <div>
+                        <div class="exp-role">[Role Title]</div>
+                        <div class="exp-org">[Studio / Company Name]</div>
+                        <ul class="exp-points">
+                            <li>[What you owned or shipped]</li>
+                            <li>[A concrete result or responsibility]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="wrap">
+            <div class="section-head">
+                <p class="eyebrow">Selected Work</p>
+                <h2>Projects</h2>
+                <p>A few projects I can talk about at length. Each has a quick overview below, plus a case study you can expand for the full story.</p>
+            </div>
 
             <div class="project-list">
 
                 <!-- PROJECT 01 -->
-                <details class="project">
-                    <summary>
+                <article class="project">
+                    <div class="project-head">
                         <span class="p-index">01</span>
                         <div class="p-heading">
                             <div class="p-title">Hand To Hand Wizardry</div>
                             <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
                         </div>
                         <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
-                        <span class="toggle">+</span>
-                    </summary>
-                    <div class="case-study">
-                        <p class="lede">A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
+                    </div>
 
-                        <figure class="media">
-                            <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
-                                    title="A short trailer of the game"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                    loading="lazy">
-                            </iframe>
-                            <figcaption>A short trailer of the game</figcaption>
-                        </figure>
-
-                        <div class="block">
-                            <h4>The Problem</h4>
-                            <p>When opening multiple menus in game, and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu the cursor would disappear on the Death Screen, soft locking the player.</p>
+                    <div class="project-meta">
+                        <div class="meta-what">
+                            <h5>What It Is</h5>
+                            <p>A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
                         </div>
-
-                        <div class="block">
-                            <h4>The Approach</h4>
-                            <p>To solve this problem, I worked backwards and tried to find out why the problem was happening. I looked through the code to find where all of the menus were enabled. From looking at the code, I figured out that how the cursor was handled was different and separate for each menu. Each menu switched the player’s input map to “UI” and enabled the cursor when opened, and switched the player’s input map to “Player” and disabled the cursor when closed. This meant that if a menu was open on top of another, closing the top menu would result in the Input Map being switched to “Player” and the cursor disappearing even though the player still has a menu open.</p>
-                            <p>My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity.</p>
-                            <p>My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.</p>
+                        <div class="meta-grid">
+                            <div class="meta-block">
+                                <h5>What I Did</h5>
+                                <p>Gameplay &amp; UI programming — built the input-map and cursor management system.</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Team</h5>
+                                <p>[Team size]</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Duration</h5>
+                                <p>~6 Months</p>
+                            </div>
                         </div>
+                    </div>
 
-                        <!--<figure class="media">
+                    <details class="case-toggle">
+                        <summary>
+                            <span class="cs-label">Case Study</span>
+                            <span class="toggle">+</span>
+                        </summary>
+                        <div class="case-study">
+                            <figure class="media">
+                                <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
+                                        title="A short trailer of the game"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen
+                                        loading="lazy">
+                                </iframe>
+                                <figcaption>A short trailer of the game</figcaption>
+                            </figure>
+
+                            <div class="block">
+                                <h4>The Problem</h4>
+                                <p>When opening multiple menus in game, and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu the cursor would disappear on the Death Screen, soft locking the player.</p>
+                            </div>
+
+                            <div class="block">
+                                <h4>The Approach</h4>
+                                <p>To solve this problem, I worked backwards and tried to find out why the problem was happening. I looked through the code to find where all of the menus were enabled. From looking at the code, I figured out that how the cursor was handled was different and separate for each menu. Each menu switched the player’s input map to “UI” and enabled the cursor when opened, and switched the player’s input map to “Player” and disabled the cursor when closed. This meant that if a menu was open on top of another, closing the top menu would result in the Input Map being switched to “Player” and the cursor disappearing even though the player still has a menu open.</p>
+                                <p>My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity.</p>
+                                <p>My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.</p>
+                            </div>
+
+                            <!--<figure class="media">
         <img src="images/ledger-before.png" alt="Screenshot of a typical budgeting app home screen dominated by pie charts and category breakdowns">
         <figcaption>Fig. 1 — Most competitors led with charts: informative, but not actionable in the moment.</figcaption>
     </figure>
@@ -611,111 +847,150 @@
         <figcaption>Fig. 2 — The redesigned home screen: one number, updated live.</figcaption>
     </figure>-->
 
-                        <div class="block">
-                            <h4>The Result</h4>
-                            <p>
-                                This system allowed the menus to stay decoupled and was a more flexible system for switching the player’s Input Maps, because it was all consolidated in one area and could be used in areas other than menus. For each Input Map I could also have specific logic be implemented when switched to, and in this case, that fixed the cursor disabling problem: when the player’s Input Map is switched to “UI” enable the cursor and show it. If the Map is switched to “Player” disable the cursor and hide it.
-                            </p>
-                        </div>
+                            <div class="block">
+                                <h4>The Result</h4>
+                                <p>
+                                    This system allowed the menus to stay decoupled and was a more flexible system for switching the player’s Input Maps, because it was all consolidated in one area and could be used in areas other than menus. For each Input Map I could also have specific logic be implemented when switched to, and in this case, that fixed the cursor disabling problem: when the player’s Input Map is switched to “UI” enable the cursor and show it. If the Map is switched to “Player” disable the cursor and hide it.
+                                </p>
+                            </div>
 
-                        <div class="stat-row">
-                            <div class="stat"><div class="num">~6 Months</div><div class="label">Preproduction To Ship</div></div>
+                            <div class="project-links">
+                                <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
+                            </div>
                         </div>
-
-                        <div class="project-links">
-                            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
-                        </div>
-                    </div>
-                </details>
+                    </details>
+                </article>
 
                 <!-- PROJECT 02 -->
-                <details class="project">
-                    <summary>
+                <article class="project">
+                    <div class="project-head">
                         <span class="p-index">02</span>
                         <div class="p-heading">
                             <div class="p-title">ECO Ranger</div>
                             <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
                         </div>
                         <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
-                        <span class="toggle">+</span>
-                    </summary>
-                    <div class="case-study">
-                        <p class="lede">Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
+                    </div>
 
-                        <!--<div class="block">
+                    <div class="project-meta">
+                        <div class="meta-what">
+                            <h5>What It Is</h5>
+                            <p>Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
+                        </div>
+                        <div class="meta-grid">
+                            <div class="meta-block">
+                                <h5>What I Did</h5>
+                                <p>Gameplay &amp; UI programming, plus audio integration with FMOD.</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Team</h5>
+                                <p>[Team size]</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Duration</h5>
+                                <p>~6 Months</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="case-toggle">
+                        <summary>
+                            <span class="cs-label">Case Study</span>
+                            <span class="toggle">+</span>
+                        </summary>
+                        <div class="case-study">
+
+                            <!--<div class="block">
                           <h4>The Problem</h4>
                           <p>I interviewed fourteen hikers who'd gotten lost or turned back on a marked trail. Every one of them had a wayfinding app installed. None of them could open it when it actually mattered, because it assumed a signal that mountains rarely provide.</p>
                         </div>-->
-                        <!--<div class="block">
+                            <!--<div class="block">
                           <h4>The Approach</h4>
                           <p>The core decision was to design the download flow like packing a bag, not installing software. You choose a route the night before, and the app tells you exactly what's stored and what isn't before you lose signal, not after.</p>
                           <p>We cut every feature that couldn't work fully offline, including a few the stakeholders liked most.</p>
                         </div>-->
-                        <!--<div class="block">
+                            <!--<div class="block">
                           <h4>The Result</h4>
                           <p>Northbound shipped to three regional parks associations in its first year. In a post-trip survey, the number that mattered most was how many people finished their route without needing to ask anyone for help.</p>
                         </div>-->
 
-                        <div class="stat-row">
-                            <div class="stat"><div class="num">~6 Months</div><div class="label">Preproduction To Ship</div></div>
-
+                            <div class="project-links">
+                                <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
+                            </div>
                         </div>
-
-                        <div class="project-links">
-                            <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
-                        </div>
-                    </div>
-                </details>
+                    </details>
+                </article>
 
                 <!-- PROJECT 03 -->
-                <details class="project">
-                    <summary>
+                <article class="project">
+                    <div class="project-head">
                         <span class="p-index">03</span>
                         <div class="p-heading">
                             <div class="p-title">Blade Of Justice</div>
                             <div class="p-tagline">A turn based Lawyer RPG</div>
                         </div>
                         <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span></div>
-                        <span class="toggle">+</span>
-                    </summary>
-                    <div class="case-study">
-                        <p class="lede">Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf</p>
+                    </div>
 
-                        <!--<div class="block">
+                    <div class="project-meta">
+                        <div class="meta-what">
+                            <h5>What It Is</h5>
+                            <p>Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf.</p>
+                        </div>
+                        <div class="meta-grid">
+                            <div class="meta-block">
+                                <h5>What I Did</h5>
+                                <p>Gameplay &amp; UI programming.</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Team</h5>
+                                <p>[Team size]</p>
+                            </div>
+                            <div class="meta-block">
+                                <h5>Duration</h5>
+                                <p>~6 Months</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <details class="case-toggle">
+                        <summary>
+                            <span class="cs-label">Case Study</span>
+                            <span class="toggle">+</span>
+                        </summary>
+                        <div class="case-study">
+                            <!--<div class="block">
                           <h4>The Problem</h4>
                           <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
                         </div>-->
 
-                        <figure class="media">
-                            <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
-                                    title="A short trailer of the game"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                    loading="lazy">
-                            </iframe>
-                            <figcaption>A short trailer of the game</figcaption>
-                        </figure>
+                            <figure class="media">
+                                <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
+                                        title="A short trailer of the game"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen
+                                        loading="lazy">
+                                </iframe>
+                                <figcaption>A short trailer of the game</figcaption>
+                            </figure>
 
-                        <!--<div class="block">
+                            <!--<div class="block">
                           <h4>The Approach</h4>
                           <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
                           <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
                         </div>-->
-                        <!--<div class="block">
+                            <!--<div class="block">
                           <h4>The Result</h4>
                           <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
                         </div>-->
 
-                        <div class="stat-row">
-                            <div class="stat"><div class="num">~6 Months</div><div class="label">Preproduction To Ship</div></div>
+                            <div class="project-links">
+                                <a href="#" target="_blank">Visit Itch Page ↗</a>
+                            </div>
                         </div>
-
-                        <div class="project-links">
-                            <a href="#" target="_blank">Visit Itch Page ↗</a>
-                        </div>
-                    </div>
-                </details>
+                    </details>
+                </article>
 
             </div>
         </div>
@@ -738,8 +1013,8 @@
 
     <script>
         // When a project's case study is closed, scroll so that project's
-        // row lands just under the navbar — rather than leaving the page
-        // wherever it happened to be (which is often mid-way through
+        // case-study toggle lands just under the navbar — rather than leaving
+        // the page wherever it happened to be (which is often mid-way through
         // whatever content used to sit below the now-collapsed case study).
         (function () {
             var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -749,7 +1024,7 @@
                 return parseFloat(v) || 0;
             }
 
-            document.querySelectorAll('.project').forEach(function (details) {
+            document.querySelectorAll('.case-toggle').forEach(function (details) {
                 details.addEventListener('toggle', function () {
                     if (details.open) return; // only act on close
                     var summary = details.querySelector('summary');
