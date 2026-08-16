@@ -351,6 +351,21 @@
                       border-color: var(--muted);
                   }
 
+              .pc-thumb {
+                  width: 100%;
+                  aspect-ratio: 16/9;
+                  overflow: hidden;
+                  border: 1px solid var(--line);
+                  background: var(--line);
+              }
+
+                  .pc-thumb img {
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      display: block;
+                  }
+
               .pc-top {
                   display: flex;
                   align-items: center;
@@ -546,6 +561,61 @@
                           margin-bottom: 0;
                       }
 
+              .case-study[hidden] {
+                  display: none;
+              }
+
+              /* ---------- CASE STUDY TABS (supports multiple per project) ---------- */
+              .cs-tabs {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 12px;
+                  margin-bottom: 28px;
+              }
+
+              .cs-tab {
+                  flex: 1 1 200px;
+                  text-align: left;
+                  background: var(--card);
+                  border: 1px solid var(--line);
+                  padding: 14px 18px;
+                  font: inherit;
+                  color: inherit;
+                  cursor: pointer;
+                  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+              }
+
+                  .cs-tab:hover,
+                  .cs-tab:focus-visible {
+                      background: var(--card-hover);
+                      border-color: var(--muted);
+                  }
+
+                  .cs-tab.is-active {
+                      background: var(--coffee);
+                      border-color: var(--coffee);
+                      color: var(--paper);
+                  }
+
+              .cs-tab-index {
+                  display: block;
+                  font-family: var(--mono);
+                  font-size: 0.66rem;
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                  color: var(--muted);
+                  margin-bottom: 4px;
+              }
+
+                  .cs-tab.is-active .cs-tab-index {
+                      color: var(--tan);
+                  }
+
+              .cs-tab-title {
+                  font-family: var(--serif);
+                  font-size: 1rem;
+              }
+
               .media {
                   width: 100%;
               }
@@ -635,7 +705,15 @@
                   display: flex;
                   align-items: center;
                   justify-content: center;
+                  cursor: pointer;
+                  transition: background 0.15s ease, border-color 0.15s ease;
               }
+
+                  .email-icon:hover,
+                  .email-icon:focus-visible {
+                      background: rgba(250,250,247,0.08);
+                      border-color: var(--paper);
+                  }
 
                   .email-icon svg {
                       width: 20px;
@@ -645,17 +723,29 @@
                   }
 
               .contact-email {
+                  font: inherit;
+                  background: none;
+                  border: none;
+                  margin: 0;
+                  color: inherit;
                   font-family: var(--serif);
                   font-style: italic;
                   font-size: clamp(1.1rem, 1.6vw + 1rem, 1.5rem);
                   border-bottom: 1px solid rgba(250,250,247,0.4);
                   padding-bottom: 6px;
+                  cursor: pointer;
                   transition: opacity 0.15s ease, border-color 0.15s ease;
               }
 
-                  .contact-email:hover {
+                  .contact-email:hover,
+                  .contact-email:focus-visible {
                       opacity: 0.75;
                       border-color: var(--paper);
+                  }
+
+                  .contact-email.is-copied {
+                      opacity: 0.75;
+                      border-color: var(--tan);
                   }
 
               .social-row {
@@ -820,6 +910,9 @@
 
                 <!-- PROJECT 01 -->
                 <article class="project-card" data-target="tpl-project-01" tabindex="0" role="button" aria-haspopup="dialog">
+                    <div class="pc-thumb">
+                        <img src="resources/thumb-hand-to-hand-wizardry.jpg" alt="Hand To Hand Wizardry thumbnail" loading="lazy">
+                    </div>
                     <div class="pc-top">
                         <span class="p-index">01</span>
                         <span class="pc-arrow" aria-hidden="true">→</span>
@@ -831,6 +924,9 @@
 
                 <!-- PROJECT 02 -->
                 <article class="project-card" data-target="tpl-project-02" tabindex="0" role="button" aria-haspopup="dialog">
+                    <div class="pc-thumb">
+                        <img src="resources/thumb-eco-ranger.jpg" alt="ECO Ranger thumbnail" loading="lazy">
+                    </div>
                     <div class="pc-top">
                         <span class="p-index">02</span>
                         <span class="pc-arrow" aria-hidden="true">→</span>
@@ -842,7 +938,14 @@
 
                 <!-- PROJECT 03 — currently disabled. To re-enable: uncomment, fill in the
                      placeholders, and add a matching <article class="project-card"> above
-                     (copy the pattern used for 01 / 02) pointing at tpl-project-03.
+                     (copy the pattern used for 01 / 02, including a .pc-thumb image)
+                     pointing at tpl-project-03.
+
+                     This example also shows the pattern for a SECOND case study on the
+                     same project: duplicate the .cs-tab button (give it a new
+                     data-case-target) and duplicate the .case-study panel (give it a
+                     matching data-case-panel and add the hidden attribute) for each
+                     additional case study.
 
                 <template id="tpl-project-03">
                     <div class="modal-head">
@@ -883,8 +986,24 @@
                         </figure>
                     </div>
 
+                    <div class="project-links">
+                        <a href="#" target="_blank">Visit Itch Page ↗</a>
+                    </div>
+
                     <p class="eyebrow">Case Study</p>
-                    <div class="case-study">
+
+                    <div class="cs-tabs">
+                        <button class="cs-tab is-active" type="button" data-case-target="cs-03-1" aria-pressed="true">
+                            <span class="cs-tab-index">Case Study 1</span>
+                            <span class="cs-tab-title">Design Token Cleanup</span>
+                        </button>
+                        <button class="cs-tab" type="button" data-case-target="cs-03-2" aria-pressed="false">
+                            <span class="cs-tab-index">Case Study 2</span>
+                            <span class="cs-tab-title">[Second Case Study Title]</span>
+                        </button>
+                    </div>
+
+                    <div class="case-study" data-case-panel="cs-03-1">
                         <div class="block">
                             <h4>The Problem</h4>
                             <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
@@ -900,8 +1019,19 @@
                         </div>
                     </div>
 
-                    <div class="project-links">
-                        <a href="#" target="_blank">Visit Itch Page ↗</a>
+                    <div class="case-study" data-case-panel="cs-03-2" hidden>
+                        <div class="block">
+                            <h4>The Problem</h4>
+                            <p>[Describe the second problem here.]</p>
+                        </div>
+                        <div class="block">
+                            <h4>The Approach</h4>
+                            <p>[Describe the second approach here.]</p>
+                        </div>
+                        <div class="block">
+                            <h4>The Result</h4>
+                            <p>[Describe the second result here.]</p>
+                        </div>
                     </div>
                 </template>
                 -->
@@ -950,8 +1080,24 @@
             </figure>
         </div>
 
+        <div class="project-links">
+            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
+        </div>
+
         <p class="eyebrow">Case Study</p>
-        <div class="case-study">
+
+        <div class="cs-tabs">
+            <button class="cs-tab is-active" type="button" data-case-target="cs-01-1" aria-pressed="true">
+                <span class="cs-tab-index">Case Study 1</span>
+                <span class="cs-tab-title">Cursor &amp; Input State Management</span>
+            </button>
+            <!-- To add another case study for this project: duplicate the button above
+                 with a new data-case-target (e.g. "cs-01-2"), then duplicate the
+                 .case-study panel below with a matching data-case-panel and a
+                 hidden attribute. -->
+        </div>
+
+        <div class="case-study" data-case-panel="cs-01-1">
             <div class="block">
                 <h4>The Problem</h4>
                 <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
@@ -976,10 +1122,6 @@
                     By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
                 </p>
             </div>
-        </div>
-
-        <div class="project-links">
-            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
         </div>
     </template>
 
@@ -1012,8 +1154,24 @@
             </div>
         </div>
 
+        <div class="project-links">
+            <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
+        </div>
+
         <p class="eyebrow">Case Study</p>
-        <div class="case-study">
+
+        <div class="cs-tabs">
+            <button class="cs-tab is-active" type="button" data-case-target="cs-02-1" aria-pressed="true">
+                <span class="cs-tab-index">Case Study 1</span>
+                <span class="cs-tab-title">Waste-Type Lookup Table</span>
+            </button>
+            <!-- To add another case study for this project: duplicate the button above
+                 with a new data-case-target (e.g. "cs-02-2"), then duplicate the
+                 .case-study panel below with a matching data-case-panel and a
+                 hidden attribute. -->
+        </div>
+
+        <div class="case-study" data-case-panel="cs-02-1">
             <div class="block">
                 <h4>The Problem</h4>
                 <p>
@@ -1046,10 +1204,6 @@
                 </p>
             </div>
         </div>
-
-        <div class="project-links">
-            <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
-        </div>
     </template>
 
     <section id="experience">
@@ -1081,13 +1235,13 @@
             <h2>Let's build something together.</h2>
 
             <div class="contact-email-row">
-                <span class="email-icon" aria-hidden="true">
+                <a class="email-icon" href="mailto:vitritran06@outlook.com" aria-label="Email Vi Tran">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2.5" y="5" width="19" height="14"></rect>
                         <path d="M3 6.5l9 6.5 9-6.5"></path>
                     </svg>
-                </span>
-                <a class="contact-email" href="mailto:vitritran06@outlook.com">vitritran06@outlook.com</a>
+                </a>
+                <button class="contact-email" type="button" data-email="vitritran06@outlook.com" aria-live="polite">vitritran06@outlook.com</button>
             </div>
 
             <div class="social-row">
@@ -1127,12 +1281,39 @@
 
             if (!overlay || !body || !closeBtn) return;
 
+            // A project can hold multiple case studies. Each .cs-tabs group
+            // controls a set of sibling .case-study panels: clicking a tab
+            // shows its matching panel (matched by data-case-target /
+            // data-case-panel) and hides the rest.
+            function initCaseStudyTabs(container) {
+                var groups = container.querySelectorAll('.cs-tabs');
+                groups.forEach(function (group) {
+                    var tabs = group.querySelectorAll('.cs-tab');
+                    tabs.forEach(function (tab) {
+                        tab.addEventListener('click', function () {
+                            var targetId = tab.getAttribute('data-case-target');
+
+                            tabs.forEach(function (t) {
+                                var isActive = t === tab;
+                                t.classList.toggle('is-active', isActive);
+                                t.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                            });
+
+                            container.querySelectorAll('.case-study[data-case-panel]').forEach(function (panel) {
+                                panel.hidden = panel.getAttribute('data-case-panel') !== targetId;
+                            });
+                        });
+                    });
+                });
+            }
+
             function openModal(templateId, trigger) {
                 var tpl = document.getElementById(templateId);
                 if (!tpl) return;
 
                 body.innerHTML = '';
                 body.appendChild(tpl.content.cloneNode(true));
+                initCaseStudyTabs(body);
 
                 lastFocused = trigger || document.activeElement;
                 overlay.classList.add('is-open');
@@ -1174,6 +1355,47 @@
 
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') closeModal();
+            });
+        })();
+
+        // Email address is a copy-to-clipboard button (the envelope icon
+        // next to it is the actual mailto: link).
+        (function () {
+            var emailBtn = document.querySelector('.contact-email');
+            if (!emailBtn) return;
+
+            var originalLabel = emailBtn.textContent.trim();
+            var resetTimer = null;
+
+            function showCopied() {
+                emailBtn.textContent = 'Copied ✓';
+                emailBtn.classList.add('is-copied');
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(function () {
+                    emailBtn.textContent = originalLabel;
+                    emailBtn.classList.remove('is-copied');
+                }, 1600);
+            }
+
+            emailBtn.addEventListener('click', function () {
+                var email = emailBtn.getAttribute('data-email') || originalLabel;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email).then(showCopied, showCopied);
+                    return;
+                }
+
+                // Fallback for browsers without the Clipboard API
+                var temp = document.createElement('textarea');
+                temp.value = email;
+                temp.style.position = 'fixed';
+                temp.style.opacity = '0';
+                document.body.appendChild(temp);
+                temp.focus();
+                temp.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(temp);
+                showCopied();
             });
         })();
     </script>
