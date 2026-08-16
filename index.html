@@ -15,6 +15,8 @@
                   --coffee-deep: #2A1D12;
                   --tan: #C7A97D;
                   --line: #E3DFD7;
+                  --card: #F1EEE6;
+                  --card-hover: #EAE5D9;
                   --muted: #5A554E;
                   --muted-paper: rgba(250,250,247,0.62);
                   --serif: "Fraunces", Georgia, serif;
@@ -322,44 +324,66 @@
                   padding-bottom: 100px;
               }
 
-              .project-list {
-                  border-top: 1px solid var(--line);
-                  border-bottom: 1px solid var(--line);
+              .project-grid {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+                  gap: 20px;
               }
 
-              .project + .project {
-                  border-top: 1px solid var(--line);
+              .project-card {
+                  background: var(--card);
+                  border: 1px solid var(--line);
+                  padding: 26px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 14px;
+                  text-align: left;
+                  cursor: pointer;
+                  font: inherit;
+                  color: inherit;
+                  width: 100%;
+                  transition: background 0.15s ease, border-color 0.15s ease;
               }
 
-              .project-head {
+                  .project-card:hover,
+                  .project-card:focus-visible {
+                      background: var(--card-hover);
+                      border-color: var(--muted);
+                  }
+
+              .pc-top {
                   display: flex;
                   align-items: center;
-                  gap: 24px;
-                  padding: 30px 0 24px;
+                  justify-content: space-between;
               }
+
+              .pc-arrow {
+                  font-family: var(--mono);
+                  font-size: 0.95rem;
+                  color: var(--muted);
+                  transition: transform 0.15s ease;
+              }
+
+                  .project-card:hover .pc-arrow,
+                  .project-card:focus-visible .pc-arrow {
+                      transform: translateX(4px);
+                  }
 
               .p-index {
                   font-family: var(--mono);
                   font-size: 0.8rem;
                   color: var(--muted);
-                  width: 24px;
-                  flex: none;
-              }
-
-              .p-heading {
-                  flex: 1;
-                  min-width: 0;
               }
 
               .p-title {
                   font-family: var(--serif);
-                  font-size: 1.4rem;
+                  font-size: 1.3rem;
                   font-weight: 400;
-                  margin-bottom: 4px;
               }
 
               .p-tagline {
-                  font-size: 0.92rem;
+                  font-size: 0.9rem;
+                  line-height: 1.5;
                   color: var(--muted);
               }
 
@@ -367,26 +391,97 @@
                   display: flex;
                   gap: 8px;
                   flex-wrap: wrap;
-                  flex: none;
+                  margin-top: auto;
+                  padding-top: 6px;
               }
 
                   .p-tags span {
                       font-family: var(--mono);
-                      font-size: 0.68rem;
+                      font-size: 0.66rem;
                       letter-spacing: 0.04em;
                       border: 1px solid var(--line);
-                      padding: 5px 10px;
+                      background: var(--paper);
+                      padding: 5px 9px;
                       color: var(--muted);
                       white-space: nowrap;
                   }
 
-              /* ---------- PROJECT META (always visible) ---------- */
-              .project-meta {
-                  border-top: 1px solid var(--line);
-                  padding: 24px 0 28px;
+              /* ---------- PROJECT MODAL ---------- */
+              .modal-overlay {
+                  display: none;
+                  position: fixed;
+                  inset: 0;
+                  background: rgba(22,19,15,0.6);
+                  align-items: flex-start;
+                  justify-content: center;
+                  padding: 72px 24px;
+                  overflow-y: auto;
+                  z-index: 300;
+              }
+
+                  .modal-overlay.is-open {
+                      display: flex;
+                  }
+
+              body.modal-open {
+                  overflow: hidden;
+              }
+
+              .modal-panel {
+                  position: relative;
+                  background: var(--paper);
+                  border: 1px solid var(--ink);
+                  box-shadow: 0 24px 64px rgba(22,19,15,0.3);
+                  width: 100%;
+                  max-width: 700px;
+                  padding: 48px;
+              }
+
+              .modal-close {
+                  position: absolute;
+                  top: 18px;
+                  right: 18px;
+                  width: 34px;
+                  height: 34px;
+                  border: 1px solid var(--ink);
+                  background: var(--paper);
+                  color: var(--ink);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-family: var(--mono);
+                  font-size: 1.15rem;
+                  line-height: 1;
+                  cursor: pointer;
+                  transition: background 0.15s ease, color 0.15s ease;
+              }
+
+                  .modal-close:hover {
+                      background: var(--ink);
+                      color: var(--paper);
+                  }
+
+              .modal-head {
+                  padding-bottom: 24px;
+                  margin-bottom: 28px;
+                  border-bottom: 1px solid var(--line);
+              }
+
+                  .modal-head .p-title {
+                      font-size: 1.55rem;
+                      margin: 10px 0 8px;
+                  }
+
+                  .modal-head .p-tags {
+                      margin-top: 18px;
+                      padding-top: 0;
+                  }
+
+              .modal-meta {
                   display: flex;
                   flex-direction: column;
                   gap: 22px;
+                  margin-bottom: 32px;
               }
 
               .meta-what p {
@@ -418,60 +513,17 @@
                   color: var(--ink);
               }
 
-              /* ---------- CASE STUDY TOGGLE ---------- */
-              .case-toggle summary {
-                  list-style: none;
-                  display: flex;
-                  align-items: center;
-                  gap: 16px;
-                  padding: 18px 0;
-                  cursor: pointer;
-                  position: sticky;
-                  top: var(--nav-h);
-                  z-index: 10;
-                  background: var(--paper);
-                  border-top: 1px solid var(--line);
+              .modal-body .eyebrow {
+                  color: var(--muted);
+                  margin: 0 0 20px;
               }
 
-                  .case-toggle summary::-webkit-details-marker {
-                      display: none;
-                  }
-
-              .cs-label {
-                  flex: 1;
-                  font-family: var(--mono);
-                  font-size: 0.72rem;
-                  letter-spacing: 0.12em;
-                  text-transform: uppercase;
-                  color: var(--ink);
-              }
-
-              .toggle {
-                  flex: none;
-                  width: 30px;
-                  height: 30px;
-                  border: 1px solid var(--ink);
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-family: var(--mono);
-                  font-size: 1rem;
-                  transition: transform 0.2s ease;
-              }
-
-              .case-toggle[open] .toggle {
-                  transform: rotate(45deg);
-              }
-
-
-
-              /* ---------- CASE STUDY (expanded content) ---------- */
+              /* ---------- CASE STUDY (inside modal) ---------- */
               .case-study {
-                  padding: 8px 0 56px;
-                  max-width: 640px;
                   display: flex;
                   flex-direction: column;
-                  gap: 32px;
+                  gap: 28px;
+                  margin-bottom: 32px;
               }
 
                   .case-study .block h4 {
@@ -537,7 +589,7 @@
                       }
 
               @media (prefers-reduced-motion: reduce) {
-                  .toggle {
+                  .pc-arrow {
                       transition: none;
                   }
 
@@ -548,14 +600,14 @@
 
               /* ---------- CONTACT ---------- */
               #contact {
-                  background: var(--ink);
+                  background: var(--coffee);
                   color: var(--paper);
                   padding-top: 120px;
                   padding-bottom: 60px;
               }
 
                   #contact .eyebrow {
-                      color: var(--muted-paper);
+                      color: var(--tan);
                       margin-bottom: 24px;
                   }
 
@@ -564,46 +616,77 @@
                       font-weight: 400;
                       font-size: clamp(2rem, 3.5vw + 1rem, 3.2rem);
                       line-height: 1.12;
-                      margin-bottom: 36px;
+                      margin-bottom: 40px;
                       max-width: 14ch;
                   }
 
+              .contact-email-row {
+                  display: flex;
+                  align-items: center;
+                  gap: 16px;
+                  margin-bottom: 48px;
+              }
+
+              .email-icon {
+                  flex: none;
+                  width: 44px;
+                  height: 44px;
+                  border: 1px solid var(--tan);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+              }
+
+                  .email-icon svg {
+                      width: 20px;
+                      height: 20px;
+                      stroke: var(--tan);
+                      fill: none;
+                  }
+
               .contact-email {
-                  display: inline-block;
                   font-family: var(--serif);
                   font-style: italic;
-                  font-size: clamp(1.3rem, 2vw + 1rem, 1.8rem);
+                  font-size: clamp(1.1rem, 1.6vw + 1rem, 1.5rem);
                   border-bottom: 1px solid rgba(250,250,247,0.4);
                   padding-bottom: 6px;
-                  margin-bottom: 44px;
-                  transition: opacity 0.15s ease;
+                  transition: opacity 0.15s ease, border-color 0.15s ease;
               }
 
                   .contact-email:hover {
-                      opacity: 0.7;
+                      opacity: 0.75;
+                      border-color: var(--paper);
                   }
 
               .social-row {
                   display: flex;
-                  gap: 24px;
+                  gap: 14px;
                   flex-wrap: wrap;
               }
 
-                  .social-row a {
-                      font-family: var(--mono);
-                      font-size: 0.75rem;
-                      letter-spacing: 0.08em;
-                      text-transform: uppercase;
-                      color: var(--muted-paper);
-                      transition: color 0.15s ease;
+              .social-icon {
+                  width: 44px;
+                  height: 44px;
+                  border: 1px solid rgba(250,250,247,0.35);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  transition: border-color 0.15s ease, background 0.15s ease;
+              }
+
+                  .social-icon svg {
+                      width: 19px;
+                      height: 19px;
+                      fill: var(--paper);
                   }
 
-                      .social-row a:hover {
-                          color: var(--paper);
-                      }
+                  .social-icon:hover {
+                      border-color: var(--paper);
+                      background: rgba(250,250,247,0.08);
+                  }
 
               footer {
-                  border-top: 1px solid rgba(250,250,247,0.12);
+                  border-top: 1px solid rgba(250,250,247,0.16);
                   margin-top: 80px;
                   padding-top: 24px;
               }
@@ -611,7 +694,7 @@
                   footer p {
                       font-family: var(--mono);
                       font-size: 0.7rem;
-                      color: rgba(250,250,247,0.4);
+                      color: rgba(250,250,247,0.52);
                       letter-spacing: 0.04em;
                   }
 
@@ -659,22 +742,16 @@
                       gap: 8px;
                   }
 
-                  .project-head {
-                      flex-wrap: wrap;
-                      row-gap: 12px;
-                  }
-
-                  .p-tags {
-                      order: 3;
-                      width: 100%;
-                  }
-
                   .meta-grid {
                       grid-template-columns: 1fr;
                   }
 
-                  .case-study {
-                      max-width: none;
+                  .modal-overlay {
+                      padding: 44px 14px;
+                  }
+
+                  .modal-panel {
+                      padding: 32px 22px;
                   }
               }
 
@@ -736,193 +813,46 @@
             <div class="section-head">
                 <p class="eyebrow">Selected Work</p>
                 <h2>Projects</h2>
-                <p>A few projects I can talk about at length. Each has a quick overview below, plus a case study you can expand for the full story.</p>
+                <p>A few projects I can talk about at length. Tap a card to open the full write-up: what it is, what I built, and the case study behind it.</p>
             </div>
 
-            <div class="project-list">
+            <div class="project-grid">
 
                 <!-- PROJECT 01 -->
-                <article class="project">
-                    <div class="project-head">
+                <article class="project-card" data-target="tpl-project-01" tabindex="0" role="button" aria-haspopup="dialog">
+                    <div class="pc-top">
                         <span class="p-index">01</span>
-                        <div class="p-heading">
-                            <div class="p-title">Hand To Hand Wizardry</div>
-                            <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
-                        </div>
-                        <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
+                        <span class="pc-arrow" aria-hidden="true">→</span>
                     </div>
-
-                    <div class="project-meta">
-                        <div class="meta-what">
-                            <h5>What It Is</h5>
-                            <p>A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
-                        </div>
-                        <div class="meta-grid">
-                            <div class="meta-block">
-                                <h5>What I Did</h5>
-                                <p>Gameplay &amp; UI programming — built the input-map and cursor management system.</p>
-                            </div>
-                            <div class="meta-block">
-                                <h5>Team</h5>
-                                <p>[Team size]</p>
-                            </div>
-                            <div class="meta-block">
-                                <h5>Duration</h5>
-                                <p>~6 Months</p>
-                            </div>
-                        </div>
-                        <figure class="media">
-                            <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
-                                    title="A short trailer of the game"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                    loading="lazy">
-                            </iframe>
-                            <figcaption>A short trailer of the game</figcaption>
-                        </figure>
-                        <div class="project-links">
-                            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
-                        </div>
-                    </div>
-
-                    <details class="case-toggle">
-                        <summary>
-                            <span class="cs-label">Case Study</span>
-                            <span class="toggle">+</span>
-                        </summary>
-                        <div class="case-study">
-                            
-
-                            <div class="block">
-                                <h4>The Problem</h4>
-                                <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
-                            </div>
-
-                            <div class="block">
-                                <h4>The Approach</h4>
-                                <p>
-                                    To solve this, I worked backward and traced the issue to how each menu handles cursor and input states independently. Opening any menu switched the input map to "UI" and enabled the cursor, closing it set the map back to "Player" and disabled the cursor. Consequently, if a user closed a top menu while a lower menu remained open, the input map still reverted to "Player" and hid the cursor even though the user was still technically in a menu.
-                                </p>
-                                <p>
-                                    My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity. The biggest problems in my mind were, if there were other input map states that needed to be accounted for, or if the player needed to move while in a menu for whatever reason.
-                                </p>
-                                <p>
-                                    My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.
-                                </p>
-                            </div>
-
-                            <!--<figure class="media">
-                                <img src="images/ledger-before.png" alt="Screenshot of a typical budgeting app home screen dominated by pie charts and category breakdowns">
-                                <figcaption>Fig. 1 — Most competitors led with charts: informative, but not actionable in the moment.</figcaption>
-                            </figure>
-
-                            <figure class="media">
-                                <img src="images/ledger-dashboard.png" alt="Ledger home screen showing the redesigned safe-to-spend balance as a single large figure">
-                                <figcaption>Fig. 2 — The redesigned home screen: one number, updated live.</figcaption>
-                            </figure>-->
-
-                            <div class="block">
-                                <h4>The Result</h4>
-                                <p>
-                                    By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
-                                </p>
-                            </div>
-                        </div>
-                    </details>
+                    <div class="p-title">Hand To Hand Wizardry</div>
+                    <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
+                    <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
                 </article>
 
                 <!-- PROJECT 02 -->
-                <article class="project">
-                    <div class="project-head">
+                <article class="project-card" data-target="tpl-project-02" tabindex="0" role="button" aria-haspopup="dialog">
+                    <div class="pc-top">
                         <span class="p-index">02</span>
-                        <div class="p-heading">
-                            <div class="p-title">ECO Ranger</div>
-                            <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
-                        </div>
-                        <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
+                        <span class="pc-arrow" aria-hidden="true">→</span>
                     </div>
-
-                    <div class="project-meta">
-                        <div class="meta-what">
-                            <h5>What It Is</h5>
-                            <p>Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
-                        </div>
-                        <div class="meta-grid">
-                            <div class="meta-block">
-                                <h5>What I Did</h5>
-                                <p>Gameplay &amp; UI programming, plus audio integration with FMOD.</p>
-                            </div>
-                            <div class="meta-block">
-                                <h5>Team</h5>
-                                <p>[Team size]</p>
-                            </div>
-                            <div class="meta-block">
-                                <h5>Duration</h5>
-                                <p>~6 Months</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <details class="case-toggle">
-                        <summary>
-                            <span class="cs-label">Case Study</span>
-                            <span class="toggle">+</span>
-                        </summary>
-                        <div class="case-study">
-
-                            <div class="block">
-                                <h4>The Problem</h4>
-                                <p>
-                                    Accessing garbage data cleanly and iteratively was inefficient and restrictive. Based on the type of garbage, I had to use an if-else chain or a switch statement every time I wanted to access data for a specific piece of waste, creating hard-to-maintain code for data that should have been tied together naturally.
-                                </p>
-                            </div>
-
-                            <div class="block">
-                                <h4>The Approach</h4>
-                                <p>
-                                    To solve this problem, I wanted to find a way to access data cleanly without relying on long conditional chains.
-                                </p>
-                                <p>
-                                    My first idea was to use the Garbage class that was already created, but that introduced problems with how we handled picking up garbage. When a player collected garbage by shooting it, the GameObject holding the Garbage class was destroyed. This meant we couldn't store references to the garbage objects in an array, as those references would be destroyed along with the garbage.
-                                </p>
-                                <p>
-                                    My second idea was to pivot to a count system using individual variables for each waste type
-                                    (int organicCount, int recyclableCount, int nonRecyclableCount).
-                                    But this solution didn't sit right with me. Trying to access any data this way still required a condition for every type of garbage in the game, forcing long switch cases or chains of if-else statements.
-                                </p>
-                                <p>
-                                    Since we already had a WasteType enum for the three garbage categories, I wanted a quick, scalable way to access the count data directly using that enum. To achieve this, I replaced the standalone variables with a Dictionary Lookup Table that mapped each WasteType enum key to its corresponding integer count value.
-                                </p>
-                            </div>
-
-                            <div class="block">
-                                <h4>The Result</h4>
-                                <p>
-                                    The result of this lookup table was that accessing count data became much cleaner and more efficient throughout the entire project. All I had to do was pass the WasteType into the dictionary to retrieve or update the count. I loved the ease of Lookup Table’s that I ended up refining and using it in future projects (see Hand To Hand Wizardry Case Study 2).
-                                </p>
-                            </div>
-
-                            <div class="project-links">
-                                <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
-                            </div>
-                        </div>
-                    </details>
+                    <div class="p-title">ECO Ranger</div>
+                    <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
+                    <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
                 </article>
 
-                <!-- PROJECT 03 -->
-                <!--
-                <article class="project">
-                    <div class="project-head">
+                <!-- PROJECT 03 — currently disabled. To re-enable: uncomment, fill in the
+                     placeholders, and add a matching <article class="project-card"> above
+                     (copy the pattern used for 01 / 02) pointing at tpl-project-03.
+
+                <template id="tpl-project-03">
+                    <div class="modal-head">
                         <span class="p-index">03</span>
-                        <div class="p-heading">
-                            <div class="p-title">Blade Of Justice</div>
-                            <div class="p-tagline">A turn based Lawyer RPG</div>
-                        </div>
+                        <div class="p-title">Blade Of Justice</div>
+                        <div class="p-tagline">A turn based Lawyer RPG</div>
                         <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span></div>
                     </div>
 
-                    <div class="project-meta">
+                    <div class="modal-meta">
                         <div class="meta-what">
                             <h5>What It Is</h5>
                             <p>Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf.</p>
@@ -941,51 +871,186 @@
                                 <p>~6 Months</p>
                             </div>
                         </div>
+                        <figure class="media">
+                            <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
+                                    title="A short trailer of the game"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                    loading="lazy">
+                            </iframe>
+                            <figcaption>A short trailer of the game</figcaption>
+                        </figure>
                     </div>
 
-                    <details class="case-toggle">
-                        <summary>
-                            <span class="cs-label">Case Study</span>
-                            <span class="toggle">+</span>
-                        </summary>
-                        <div class="case-study">
-                            <div class="block">
-                          <h4>The Problem</h4>
-                          <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
+                    <p class="eyebrow">Case Study</p>
+                    <div class="case-study">
+                        <div class="block">
+                            <h4>The Problem</h4>
+                            <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
                         </div>
+                        <div class="block">
+                            <h4>The Approach</h4>
+                            <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
+                            <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
+                        </div>
+                        <div class="block">
+                            <h4>The Result</h4>
+                            <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
+                        </div>
+                    </div>
 
-                            <figure class="media">
-                                <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
-                                        title="A short trailer of the game"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin"
-                                        allowfullscreen
-                                        loading="lazy">
-                                </iframe>
-                                <figcaption>A short trailer of the game</figcaption>
-                            </figure>
-
-                            <div class="block">
-                          <h4>The Approach</h4>
-                          <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
-                          <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
-                        </div>
-                            <div class="block">
-                          <h4>The Result</h4>
-                          <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
-                        </div>
-
-                            <div class="project-links">
-                                <a href="#" target="_blank">Visit Itch Page ↗</a>
-                            </div>
-                        </div>
-                    </details>
-                </article>
+                    <div class="project-links">
+                        <a href="#" target="_blank">Visit Itch Page ↗</a>
+                    </div>
+                </template>
                 -->
 
             </div>
         </div>
     </section>
+
+    <!-- Hidden detail content, cloned into the modal on click -->
+    <template id="tpl-project-01">
+        <div class="modal-head">
+            <span class="p-index">01</span>
+            <div class="p-title">Hand To Hand Wizardry</div>
+            <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
+            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
+        </div>
+
+        <div class="modal-meta">
+            <div class="meta-what">
+                <h5>What It Is</h5>
+                <p>A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
+            </div>
+            <div class="meta-grid">
+                <div class="meta-block">
+                    <h5>What I Did</h5>
+                    <p>Gameplay &amp; UI programming — built the input-map and cursor management system.</p>
+                </div>
+                <div class="meta-block">
+                    <h5>Team</h5>
+                    <p>6 Developers</p>
+                </div>
+                <div class="meta-block">
+                    <h5>Duration</h5>
+                    <p>~6 Months</p>
+                </div>
+            </div>
+            <figure class="media">
+                <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
+                        title="A short trailer of the game"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                        loading="lazy">
+                </iframe>
+                <figcaption>A short trailer of the game</figcaption>
+            </figure>
+        </div>
+
+        <p class="eyebrow">Case Study</p>
+        <div class="case-study">
+            <div class="block">
+                <h4>The Problem</h4>
+                <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
+            </div>
+
+            <div class="block">
+                <h4>The Approach</h4>
+                <p>
+                    To solve this, I worked backward and traced the issue to how each menu handles cursor and input states independently. Opening any menu switched the input map to "UI" and enabled the cursor, closing it set the map back to "Player" and disabled the cursor. Consequently, if a user closed a top menu while a lower menu remained open, the input map still reverted to "Player" and hid the cursor even though the user was still technically in a menu.
+                </p>
+                <p>
+                    My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity. The biggest problems in my mind were, if there were other input map states that needed to be accounted for, or if the player needed to move while in a menu for whatever reason.
+                </p>
+                <p>
+                    My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.
+                </p>
+            </div>
+
+            <div class="block">
+                <h4>The Result</h4>
+                <p>
+                    By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
+                </p>
+            </div>
+        </div>
+
+        <div class="project-links">
+            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
+        </div>
+    </template>
+
+    <template id="tpl-project-02">
+        <div class="modal-head">
+            <span class="p-index">02</span>
+            <div class="p-title">ECO Ranger</div>
+            <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
+            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
+        </div>
+
+        <div class="modal-meta">
+            <div class="meta-what">
+                <h5>What It Is</h5>
+                <p>Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
+            </div>
+            <div class="meta-grid">
+                <div class="meta-block">
+                    <h5>What I Did</h5>
+                    <p>Gameplay &amp; UI programming, plus audio integration with FMOD.</p>
+                </div>
+                <div class="meta-block">
+                    <h5>Team</h5>
+                    <p>6 Developers</p>
+                </div>
+                <div class="meta-block">
+                    <h5>Duration</h5>
+                    <p>~6 Months</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="eyebrow">Case Study</p>
+        <div class="case-study">
+            <div class="block">
+                <h4>The Problem</h4>
+                <p>
+                    Accessing garbage data cleanly and iteratively was inefficient and restrictive. Based on the type of garbage, I had to use an if-else chain or a switch statement every time I wanted to access data for a specific piece of waste, creating hard-to-maintain code for data that should have been tied together naturally.
+                </p>
+            </div>
+
+            <div class="block">
+                <h4>The Approach</h4>
+                <p>
+                    To solve this problem, I wanted to find a way to access data cleanly without relying on long conditional chains.
+                </p>
+                <p>
+                    My first idea was to use the Garbage class that was already created, but that introduced problems with how we handled picking up garbage. When a player collected garbage by shooting it, the GameObject holding the Garbage class was destroyed. This meant we couldn't store references to the garbage objects in an array, as those references would be destroyed along with the garbage.
+                </p>
+                <p>
+                    My second idea was to pivot to a count system using individual variables for each waste type
+                    (int organicCount, int recyclableCount, int nonRecyclableCount).
+                    But this solution didn't sit right with me. Trying to access any data this way still required a condition for every type of garbage in the game, forcing long switch cases or chains of if-else statements.
+                </p>
+                <p>
+                    Since we already had a WasteType enum for the three garbage categories, I wanted a quick, scalable way to access the count data directly using that enum. To achieve this, I replaced the standalone variables with a Dictionary Lookup Table that mapped each WasteType enum key to its corresponding integer count value.
+                </p>
+            </div>
+
+            <div class="block">
+                <h4>The Result</h4>
+                <p>
+                    The result of this lookup table was that accessing count data became much cleaner and more efficient throughout the entire project. All I had to do was pass the WasteType into the dictionary to retrieve or update the count. I loved the ease of Lookup Table’s that I ended up refining and using it in future projects (see Hand To Hand Wizardry Case Study 2).
+                </p>
+            </div>
+        </div>
+
+        <div class="project-links">
+            <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
+        </div>
+    </template>
 
     <section id="experience">
         <div class="wrap">
@@ -1014,48 +1079,101 @@
         <div class="wrap">
             <p class="eyebrow">Contact</p>
             <h2>Let's build something together.</h2>
-            <a class="contact-email" href="mailto:vitritran06@outlook.com">vitritran06@outlook.com</a>
-            <div class="social-row">
-                <a href="https://github.com/L-Whone" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/vi-tran01" target="_blank">LinkedIn</a>
+
+            <div class="contact-email-row">
+                <span class="email-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="5" width="19" height="14"></rect>
+                        <path d="M3 6.5l9 6.5 9-6.5"></path>
+                    </svg>
+                </span>
+                <a class="contact-email" href="mailto:vitritran06@outlook.com">vitritran06@outlook.com</a>
             </div>
+
+            <div class="social-row">
+                <a class="social-icon" href="https://github.com/L-Whone" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.5 5.73.5 12.02c0 5.05 3.29 9.33 7.86 10.84.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.24 2.76.12 3.05.73.8 1.17 1.83 1.17 3.08 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.2.66.79.55A11.53 11.53 0 0 0 23.5 12c0-6.29-5.23-11.5-11.5-11.5z"/></svg>
+                </a>
+                <a class="social-icon" href="https://www.linkedin.com/in/vi-tran01" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                </a>
+            </div>
+
             <footer>
                 <p>© 2026 Vi Tran. All rights reserved.</p>
             </footer>
         </div>
     </section>
 
-    <script>
-        // When a project's case study is closed, scroll so that project's
-        // case-study toggle lands just under the navbar — rather than leaving
-        // the page wherever it happened to be (which is often mid-way through
-        // whatever content used to sit below the now-collapsed case study).
-        (function () {
-            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    <!-- Project detail modal — content is injected from the <template> tags above -->
+    <div class="modal-overlay" id="projectOverlay" aria-hidden="true">
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Project details">
+            <button class="modal-close" id="modalClose" type="button" aria-label="Close project details">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
 
-            function navHeight() {
-                var v = getComputedStyle(document.documentElement).getPropertyValue('--nav-h');
-                return parseFloat(v) || 0;
+    <script>
+        // Project cards open a modal "page" with the full write-up, cloned
+        // from the matching <template>. Handles mouse, keyboard, and
+        // click-outside / Escape-to-close.
+        (function () {
+            var overlay = document.getElementById('projectOverlay');
+            var body = document.getElementById('modalBody');
+            var closeBtn = document.getElementById('modalClose');
+            var lastFocused = null;
+
+            if (!overlay || !body || !closeBtn) return;
+
+            function openModal(templateId, trigger) {
+                var tpl = document.getElementById(templateId);
+                if (!tpl) return;
+
+                body.innerHTML = '';
+                body.appendChild(tpl.content.cloneNode(true));
+
+                lastFocused = trigger || document.activeElement;
+                overlay.classList.add('is-open');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+                closeBtn.focus();
             }
 
-            document.querySelectorAll('.case-toggle').forEach(function (details) {
-                details.addEventListener('toggle', function () {
-                    if (details.open) return; // only act on close
-                    var summary = details.querySelector('summary');
-                    if (!summary) return;
+            function closeModal() {
+                if (!overlay.classList.contains('is-open')) return;
 
-                    var rect = summary.getBoundingClientRect();
-                    var navH = navHeight();
+                overlay.classList.remove('is-open');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+                body.innerHTML = '';
 
-                    if (rect.top >= navH) return;
+                if (lastFocused && typeof lastFocused.focus === 'function') {
+                    lastFocused.focus();
+                }
+            }
 
-                    var target = window.scrollY + rect.top - navH;
-
-                    window.scrollTo({
-                        top: Math.max(target, 0),
-                        behavior: reduceMotion ? 'auto' : 'smooth'
-                    });
+            document.querySelectorAll('.project-card').forEach(function (card) {
+                card.addEventListener('click', function () {
+                    openModal(card.getAttribute('data-target'), card);
                 });
+                card.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal(card.getAttribute('data-target'), card);
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeModal();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeModal();
             });
         })();
     </script>
