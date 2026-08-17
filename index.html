@@ -137,14 +137,14 @@
 
                   #about .wrap {
                       display: grid;
-                      grid-template-columns: 240px 1fr;
+                      grid-template-columns: 280px 1fr;
                       gap: 64px;
                       align-items: start;
                   }
 
               .monogram {
-                  width: 240px;
-                  height: 240px;
+                  width: 280px;
+                  aspect-ratio: 4 / 5;
                   flex: none;
                   border: 1px solid var(--tan);
                   overflow: hidden;
@@ -163,17 +163,11 @@
                       display: block;
                   }
 
-              #about .eyebrow {
-                  color: var(--tan);
-                  margin-bottom: 22px;
-              }
-
               #about h1 {
                   font-family: var(--serif);
                   font-weight: 400;
-                  font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem);
-                  line-height: 1.08;
-                  margin-bottom: 8px;
+                  font-size: clamp(1.9rem, 2.4vw + 1rem, 2.5rem);
+                  margin-bottom: 16px;
               }
 
               #about .role {
@@ -233,15 +227,10 @@
                       border-color: var(--paper);
                   }
 
-              /* ---------- SHARED SECTION HEADER (Experience / Projects) ---------- */
+              /* ---------- SHARED SECTION HEADER (About / Experience / Education / Projects / Contact) ---------- */
               .section-head {
                   margin-bottom: 56px;
               }
-
-                  .section-head .eyebrow {
-                      color: var(--muted);
-                      margin-bottom: 8px;
-                  }
 
                   .section-head h2 {
                       font-family: var(--serif);
@@ -258,50 +247,69 @@
 
               /* ---------- EXPERIENCE ---------- */
               #experience {
+                  background: var(--card);
                   padding-top: 110px;
                   padding-bottom: 90px;
               }
 
               .exp-list {
-                  border-top: 1px solid var(--line);
-                  border-bottom: 1px solid var(--line);
+                  display: flex;
+                  flex-direction: column;
+                  border: 2px solid var(--ink);
               }
 
               .exp-item {
                   display: grid;
-                  grid-template-columns: 160px 1fr;
-                  gap: 24px;
-                  padding: 32px 0;
+                  grid-template-columns: 150px 1fr;
+                  gap: 28px;
+                  padding: 32px 28px;
               }
 
               .exp-item + .exp-item {
                   border-top: 1px solid var(--line);
               }
 
+              .exp-when-col {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 14px;
+              }
+
               .exp-when {
                   font-family: var(--mono);
                   font-size: 0.75rem;
-                  letter-spacing: 0.04em;
+                  letter-spacing: 0.05em;
                   color: var(--muted);
-                  padding-top: 4px;
+                  padding-top: 2px;
+              }
+
+              .exp-logo {
+                  display: block;
+                  align-self: center;
+                  max-width: 100px;
+                  max-height: 56px;
+                  width: auto;
+                  height: auto;
+                  object-fit: contain;
               }
 
               .exp-role {
                   font-family: var(--serif);
-                  font-size: 1.2rem;
-                  margin-bottom: 2px;
+                  font-size: 1.25rem;
+                  font-weight: 400;
+                  margin-bottom: 3px;
               }
 
               .exp-org {
                   font-size: 0.92rem;
                   color: var(--muted);
-                  margin-bottom: 14px;
+                  margin-bottom: 16px;
               }
 
               .exp-points {
                   display: flex;
                   flex-direction: column;
-                  gap: 6px;
+                  gap: 8px;
               }
 
                   .exp-points li {
@@ -317,6 +325,12 @@
                           left: 0;
                           color: var(--muted);
                       }
+
+              .exp-desc {
+                  font-size: 0.92rem;
+                  line-height: 1.6;
+                  max-width: 62ch;
+              }
 
               /* ---------- PROJECTS ---------- */
               #projects {
@@ -369,7 +383,7 @@
               .pc-top {
                   display: flex;
                   align-items: center;
-                  justify-content: space-between;
+                  justify-content: flex-end;
               }
 
               .pc-arrow {
@@ -383,12 +397,6 @@
                   .project-card:focus-visible .pc-arrow {
                       transform: translateX(4px);
                   }
-
-              .p-index {
-                  font-family: var(--mono);
-                  font-size: 0.8rem;
-                  color: var(--muted);
-              }
 
               .p-title {
                   font-family: var(--serif);
@@ -449,6 +457,26 @@
                   box-shadow: 0 24px 64px rgba(22,19,15,0.3);
                   width: 100%;
                   max-width: 700px;
+                  padding: 0;
+                  overflow: hidden;
+              }
+
+              .modal-cover {
+                  width: 100%;
+                  aspect-ratio: 16/9;
+                  overflow: hidden;
+                  background: var(--line);
+                  margin: 0;
+              }
+
+                  .modal-cover img {
+                      width: 100%;
+                      height: 100%;
+                      object-fit: cover;
+                      display: block;
+                  }
+
+              .modal-content {
                   padding: 48px;
               }
 
@@ -484,7 +512,7 @@
 
                   .modal-head .p-title {
                       font-size: 1.55rem;
-                      margin: 10px 0 8px;
+                      margin: 0 0 8px;
                   }
 
                   .modal-head .p-tags {
@@ -638,24 +666,49 @@
                   }
 
               .project-links {
-                  display: flex;
-                  gap: 28px;
-                  flex-wrap: wrap;
                   padding-top: 24px;
+                  margin-bottom: 36px;
                   border-top: 1px solid var(--line);
               }
 
-                  .project-links a {
+                  .project-links h5 {
                       font-family: var(--mono);
-                      font-size: 0.75rem;
-                      letter-spacing: 0.05em;
+                      font-size: 0.66rem;
+                      letter-spacing: 0.1em;
                       text-transform: uppercase;
-                      border-bottom: 1px solid transparent;
-                      transition: border-color 0.15s ease;
+                      color: var(--muted);
+                      margin-bottom: 14px;
                   }
 
-                      .project-links a:hover {
+              .project-links-row {
+                  display: flex;
+                  gap: 14px;
+                  flex-wrap: wrap;
+              }
+
+                  .project-link-icon {
+                      width: 44px;
+                      height: 44px;
+                      border: 1px solid var(--line);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      transition: border-color 0.15s ease, background 0.15s ease;
+                  }
+
+                      .project-link-icon img {
+                          max-width: 22px;
+                          max-height: 22px;
+                          width: auto;
+                          height: auto;
+                          object-fit: contain;
+                          display: block;
+                      }
+
+                      .project-link-icon:hover,
+                      .project-link-icon:focus-visible {
                           border-color: var(--ink);
+                          background: var(--card);
                       }
 
               @media (prefers-reduced-motion: reduce) {
@@ -676,18 +729,11 @@
                   padding-bottom: 60px;
               }
 
-                  #contact .eyebrow {
-                      color: var(--tan);
-                      margin-bottom: 24px;
-                  }
-
                   #contact h2 {
                       font-family: var(--serif);
                       font-weight: 400;
-                      font-size: clamp(2rem, 3.5vw + 1rem, 3.2rem);
-                      line-height: 1.12;
-                      margin-bottom: 40px;
-                      max-width: 14ch;
+                      font-size: clamp(1.9rem, 2.4vw + 1rem, 2.5rem);
+                      margin-bottom: 16px;
                   }
 
               .contact-email-row {
@@ -723,6 +769,9 @@
                   }
 
               .contact-email {
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 10px;
                   font: inherit;
                   background: none;
                   border: none;
@@ -743,9 +792,59 @@
                       border-color: var(--paper);
                   }
 
-                  .contact-email.is-copied {
-                      opacity: 0.75;
-                      border-color: var(--tan);
+              .contact-email-icon-wrap {
+                  position: relative;
+                  display: inline-flex;
+                  align-items: center;
+              }
+
+              .contact-email-copy-icon {
+                  width: 15px;
+                  height: 15px;
+                  flex: none;
+                  stroke: currentColor;
+                  fill: none;
+                  opacity: 0.55;
+                  transition: opacity 0.15s ease, stroke 0.15s ease;
+              }
+
+                  .contact-email:hover .contact-email-copy-icon,
+                  .contact-email:focus-visible .contact-email-copy-icon {
+                      opacity: 0.9;
+                  }
+
+                  .contact-email-copy-icon.icon-check {
+                      display: none;
+                  }
+
+                  .contact-email.is-copied .contact-email-copy-icon.icon-copy {
+                      display: none;
+                  }
+
+                  .contact-email.is-copied .contact-email-copy-icon.icon-check {
+                      display: block;
+                      opacity: 1;
+                      stroke: var(--tan);
+                  }
+
+              .copy-tooltip {
+                  position: absolute;
+                  left: calc(100% + 8px);
+                  top: 50%;
+                  transform: translateY(-50%);
+                  font-family: var(--mono);
+                  font-size: 0.7rem;
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                  color: var(--tan);
+                  white-space: nowrap;
+                  opacity: 0;
+                  transition: opacity 0.15s ease;
+                  pointer-events: none;
+              }
+
+                  .contact-email.is-copied .copy-tooltip {
+                      opacity: 1;
                   }
 
               .social-row {
@@ -805,7 +904,14 @@
 
                   .navlinks {
                       gap: 20px;
+                      overflow-x: auto;
+                      -webkit-overflow-scrolling: touch;
+                      scrollbar-width: none;
                   }
+
+                      .navlinks::-webkit-scrollbar {
+                          display: none;
+                      }
 
                   #about .wrap {
                       grid-template-columns: 1fr;
@@ -813,8 +919,8 @@
                   }
 
                   .monogram {
-                      width: 96px;
-                      height: 96px;
+                      width: 160px;
+                      aspect-ratio: 4 / 5;
                       font-size: 1.7rem;
                   }
 
@@ -830,6 +936,7 @@
                   .exp-item {
                       grid-template-columns: 1fr;
                       gap: 8px;
+                      padding: 24px 20px;
                   }
 
                   .meta-grid {
@@ -840,7 +947,7 @@
                       padding: 44px 14px;
                   }
 
-                  .modal-panel {
+                  .modal-content {
                       padding: 32px 22px;
                   }
               }
@@ -873,6 +980,7 @@
             <div class="navlinks">
                 <a href="#about">About</a>
                 <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -885,7 +993,6 @@
                 <img src="resources/Me.jpg" alt="Portrait of Vi Tran" />
             </div>
             <div>
-                <p class="eyebrow">About</p>
                 <h1>Vi Tran</h1>
                 <p class="role">Gameplay Engineer</p>
                 <p>I love solving problems in a structured manner: clean, easy to use, with room for extension. I strive to build solutions that explains itself so that everyone has the easiest time when working with it (especially me).</p>
@@ -901,7 +1008,6 @@
     <section id="projects">
         <div class="wrap">
             <div class="section-head">
-                <p class="eyebrow">Selected Work</p>
                 <h2>Projects</h2>
                 <p>A few projects I can talk about at length. Tap a card to open the full write-up: what it is, what I built, and the case study behind it.</p>
             </div>
@@ -911,10 +1017,9 @@
                 <!-- PROJECT 01 -->
                 <article class="project-card" data-target="tpl-project-01" tabindex="0" role="button" aria-haspopup="dialog">
                     <div class="pc-thumb">
-                        <img src="resources/thumb-hand-to-hand-wizardry.jpg" alt="Hand To Hand Wizardry thumbnail" loading="lazy">
+                        <img src="resources/thumb-hand-to-hand-wizardry.gif" alt="Hand To Hand Wizardry thumbnail" loading="lazy">
                     </div>
                     <div class="pc-top">
-                        <span class="p-index">01</span>
                         <span class="pc-arrow" aria-hidden="true">→</span>
                     </div>
                     <div class="p-title">Hand To Hand Wizardry</div>
@@ -925,10 +1030,9 @@
                 <!-- PROJECT 02 -->
                 <article class="project-card" data-target="tpl-project-02" tabindex="0" role="button" aria-haspopup="dialog">
                     <div class="pc-thumb">
-                        <img src="resources/thumb-eco-ranger.jpg" alt="ECO Ranger thumbnail" loading="lazy">
+                        <img src="resources/thumb-eco-ranger.png" alt="ECO Ranger thumbnail" loading="lazy">
                     </div>
                     <div class="pc-top">
-                        <span class="p-index">02</span>
                         <span class="pc-arrow" aria-hidden="true">→</span>
                     </div>
                     <div class="p-title">ECO Ranger</div>
@@ -944,93 +1048,104 @@
                      This example also shows the pattern for a SECOND case study on the
                      same project: duplicate the .cs-tab button (give it a new
                      data-case-target) and duplicate the .case-study panel (give it a
-                     matching data-case-panel and add the hidden attribute) for each
-                     additional case study.
+                     matching data-case-panel and a hidden attribute) for each additional
+                     case study. Neither case study is open by default — hidden stays on
+                     both panels until the visitor clicks a tab.
 
                 <template id="tpl-project-03">
-                    <div class="modal-head">
-                        <span class="p-index">03</span>
-                        <div class="p-title">Blade Of Justice</div>
-                        <div class="p-tagline">A turn based Lawyer RPG</div>
-                        <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span></div>
-                    </div>
+                    <figure class="modal-cover">
+                        <img src="resources/thumb-blade-of-justice.jpg" alt="Blade Of Justice cover" loading="lazy">
+                    </figure>
 
-                    <div class="modal-meta">
-                        <div class="meta-what">
-                            <h5>What It Is</h5>
-                            <p>Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf.</p>
+                    <div class="modal-content">
+                        <div class="modal-head">
+                            <div class="p-title">Blade Of Justice</div>
+                            <div class="p-tagline">A turn based Lawyer RPG</div>
+                            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span></div>
                         </div>
-                        <div class="meta-grid">
-                            <div class="meta-block">
-                                <h5>What I Did</h5>
-                                <p>Gameplay &amp; UI programming.</p>
+
+                        <div class="modal-meta">
+                            <div class="meta-what">
+                                <h5>What It Is</h5>
+                                <p>Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf.</p>
                             </div>
-                            <div class="meta-block">
-                                <h5>Team</h5>
-                                <p>[Team size]</p>
+                            <div class="meta-grid">
+                                <div class="meta-block">
+                                    <h5>What I Did</h5>
+                                    <p>Gameplay &amp; UI programming.</p>
+                                </div>
+                                <div class="meta-block">
+                                    <h5>Team</h5>
+                                    <p>[Team size]</p>
+                                </div>
+                                <div class="meta-block">
+                                    <h5>Duration</h5>
+                                    <p>~6 Months</p>
+                                </div>
                             </div>
-                            <div class="meta-block">
-                                <h5>Duration</h5>
-                                <p>~6 Months</p>
+                            <figure class="media">
+                                <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
+                                        title="A short trailer of the game"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen
+                                        loading="lazy">
+                                </iframe>
+                                <figcaption>A short trailer of the game</figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="project-links">
+                            <h5>Links</h5>
+                            <div class="project-links-row">
+                                <a class="project-link-icon" href="#" target="_blank" aria-label="Visit Blade Of Justice on itch.io">
+                                    <img src="resources/itchio-logo-textless-black.png" alt="itch.io">
+                                </a>
                             </div>
                         </div>
-                        <figure class="media">
-                            <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
-                                    title="A short trailer of the game"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                    loading="lazy">
-                            </iframe>
-                            <figcaption>A short trailer of the game</figcaption>
-                        </figure>
-                    </div>
 
-                    <div class="project-links">
-                        <a href="#" target="_blank">Visit Itch Page ↗</a>
-                    </div>
+                        <p class="eyebrow">Case Study</p>
 
-                    <p class="eyebrow">Case Study</p>
+                        <div class="cs-tabs">
+                            <button class="cs-tab" type="button" data-case-target="cs-03-1" aria-pressed="false">
+                                <span class="cs-tab-index">Case Study 1</span>
+                                <span class="cs-tab-title">Design Token Cleanup</span>
+                            </button>
+                            <button class="cs-tab" type="button" data-case-target="cs-03-2" aria-pressed="false">
+                                <span class="cs-tab-index">Case Study 2</span>
+                                <span class="cs-tab-title">[Second Case Study Title]</span>
+                            </button>
+                        </div>
 
-                    <div class="cs-tabs">
-                        <button class="cs-tab is-active" type="button" data-case-target="cs-03-1" aria-pressed="true">
-                            <span class="cs-tab-index">Case Study 1</span>
-                            <span class="cs-tab-title">Design Token Cleanup</span>
-                        </button>
-                        <button class="cs-tab" type="button" data-case-target="cs-03-2" aria-pressed="false">
-                            <span class="cs-tab-index">Case Study 2</span>
-                            <span class="cs-tab-title">[Second Case Study Title]</span>
-                        </button>
-                    </div>
+                        <div class="case-study" data-case-panel="cs-03-1" hidden>
+                            <div class="block">
+                                <h4>The Problem</h4>
+                                <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
+                            </div>
+                            <div class="block">
+                                <h4>The Approach</h4>
+                                <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
+                                <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
+                            </div>
+                            <div class="block">
+                                <h4>The Result</h4>
+                                <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
+                            </div>
+                        </div>
 
-                    <div class="case-study" data-case-panel="cs-03-1">
-                        <div class="block">
-                            <h4>The Problem</h4>
-                            <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
-                        </div>
-                        <div class="block">
-                            <h4>The Approach</h4>
-                            <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
-                            <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
-                        </div>
-                        <div class="block">
-                            <h4>The Result</h4>
-                            <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
-                        </div>
-                    </div>
-
-                    <div class="case-study" data-case-panel="cs-03-2" hidden>
-                        <div class="block">
-                            <h4>The Problem</h4>
-                            <p>[Describe the second problem here.]</p>
-                        </div>
-                        <div class="block">
-                            <h4>The Approach</h4>
-                            <p>[Describe the second approach here.]</p>
-                        </div>
-                        <div class="block">
-                            <h4>The Result</h4>
-                            <p>[Describe the second result here.]</p>
+                        <div class="case-study" data-case-panel="cs-03-2" hidden>
+                            <div class="block">
+                                <h4>The Problem</h4>
+                                <p>[Describe the second problem here.]</p>
+                            </div>
+                            <div class="block">
+                                <h4>The Approach</h4>
+                                <p>[Describe the second approach here.]</p>
+                            </div>
+                            <div class="block">
+                                <h4>The Result</h4>
+                                <p>[Describe the second result here.]</p>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -1042,166 +1157,186 @@
 
     <!-- Hidden detail content, cloned into the modal on click -->
     <template id="tpl-project-01">
-        <div class="modal-head">
-            <span class="p-index">01</span>
-            <div class="p-title">Hand To Hand Wizardry</div>
-            <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
-            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
-        </div>
+        <figure class="modal-cover">
+            <img src="resources/thumb-hand-to-hand-wizardry.gif" alt="Hand To Hand Wizardry cover" loading="lazy">
+        </figure>
 
-        <div class="modal-meta">
-            <div class="meta-what">
-                <h5>What It Is</h5>
-                <p>A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
+        <div class="modal-content">
+            <div class="modal-head">
+                <div class="p-title">Hand To Hand Wizardry</div>
+                <div class="p-tagline">An hommage to Boomer Shooters in a modern style</div>
+                <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
             </div>
-            <div class="meta-grid">
-                <div class="meta-block">
-                    <h5>What I Did</h5>
-                    <p>Gameplay &amp; UI programming — built the input-map and cursor management system.</p>
+
+            <div class="modal-meta">
+                <div class="meta-what">
+                    <h5>What It Is</h5>
+                    <p>A 3D First-Person Boomer Shooter with a dark Fantasy vibe inspired by the PSX art style. You play as Zoltan an egotistical wizard who believes themself to be better than most. His hubris leads him to an unconquerable dungeon where the monsters inside revere Hands as a religious symbol. Discover just how dangerous the dungeon is and the secrets that lie below...</p>
                 </div>
-                <div class="meta-block">
-                    <h5>Team</h5>
-                    <p>6 Developers</p>
+                <div class="meta-grid">
+                    <div class="meta-block">
+                        <h5>What I Did</h5>
+                        <p>Gameplay &amp; UI programming — built the input-map and cursor management system.</p>
+                    </div>
+                    <div class="meta-block">
+                        <h5>Team</h5>
+                        <p>6 Developers</p>
+                    </div>
+                    <div class="meta-block">
+                        <h5>Duration</h5>
+                        <p>~6 Months</p>
+                    </div>
                 </div>
-                <div class="meta-block">
-                    <h5>Duration</h5>
-                    <p>~6 Months</p>
+                <figure class="media">
+                    <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
+                            title="A short trailer of the game"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                            loading="lazy">
+                    </iframe>
+                    <figcaption>A short trailer of the game</figcaption>
+                </figure>
+            </div>
+
+            <div class="project-links">
+                <h5>Links</h5>
+                <div class="project-links-row">
+                    <a class="project-link-icon" href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank" aria-label="Visit Hand To Hand Wizardry on itch.io">
+                        <img src="resources/itchio-logo-textless-black.png" alt="itch.io">
+                    </a>
                 </div>
             </div>
-            <figure class="media">
-                <iframe src="https://www.youtube.com/embed/C3mWOifDKh4"
-                        title="A short trailer of the game"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                        loading="lazy">
-                </iframe>
-                <figcaption>A short trailer of the game</figcaption>
-            </figure>
-        </div>
 
-        <div class="project-links">
-            <a href="https://vfs-gdpg.itch.io/hand-to-hand-wizardry" target="_blank">Visit Itch Page ↗</a>
-        </div>
+            <p class="eyebrow">Case Study</p>
 
-        <p class="eyebrow">Case Study</p>
-
-        <div class="cs-tabs">
-            <button class="cs-tab is-active" type="button" data-case-target="cs-01-1" aria-pressed="true">
-                <span class="cs-tab-index">Case Study 1</span>
-                <span class="cs-tab-title">Cursor &amp; Input State Management</span>
-            </button>
-            <!-- To add another case study for this project: duplicate the button above
-                 with a new data-case-target (e.g. "cs-01-2"), then duplicate the
-                 .case-study panel below with a matching data-case-panel and a
-                 hidden attribute. -->
-        </div>
-
-        <div class="case-study" data-case-panel="cs-01-1">
-            <div class="block">
-                <h4>The Problem</h4>
-                <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
+            <div class="cs-tabs">
+                <button class="cs-tab" type="button" data-case-target="cs-01-1" aria-pressed="false">
+                    <span class="cs-tab-index">Case Study 1</span>
+                    <span class="cs-tab-title">Cursor &amp; Input State Management</span>
+                </button>
+                <!-- To add another case study for this project: duplicate the button above
+                     with a new data-case-target (e.g. "cs-01-2"), then duplicate the
+                     .case-study panel below with a matching data-case-panel and a
+                     hidden attribute. -->
             </div>
 
-            <div class="block">
-                <h4>The Approach</h4>
-                <p>
-                    To solve this, I worked backward and traced the issue to how each menu handles cursor and input states independently. Opening any menu switched the input map to "UI" and enabled the cursor, closing it set the map back to "Player" and disabled the cursor. Consequently, if a user closed a top menu while a lower menu remained open, the input map still reverted to "Player" and hid the cursor even though the user was still technically in a menu.
-                </p>
-                <p>
-                    My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity. The biggest problems in my mind were, if there were other input map states that needed to be accounted for, or if the player needed to move while in a menu for whatever reason.
-                </p>
-                <p>
-                    My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.
-                </p>
-            </div>
+            <div class="case-study" data-case-panel="cs-01-1" hidden>
+                <div class="block">
+                    <h4>The Problem</h4>
+                    <p>When opening multiple menus in-game and closing one, the cursor would lock and be disabled. This affected the player mostly when they died and then paused the game. After closing the pause menu, the cursor would disappear on the Death Screen, soft-locking the player.</p>
+                </div>
 
-            <div class="block">
-                <h4>The Result</h4>
-                <p>
-                    By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
-                </p>
+                <div class="block">
+                    <h4>The Approach</h4>
+                    <p>
+                        To solve this, I worked backward and traced the issue to how each menu handles cursor and input states independently. Opening any menu switched the input map to "UI" and enabled the cursor, closing it set the map back to "Player" and disabled the cursor. Consequently, if a user closed a top menu while a lower menu remained open, the input map still reverted to "Player" and hid the cursor even though the user was still technically in a menu.
+                    </p>
+                    <p>
+                        My first idea was to count the number of menus open and if there were none, switch the player input map back from “UI” to “Player”, but I could see this having many problems later on, specifically in terms of scalability and flexiblity. The biggest problems in my mind were, if there were other input map states that needed to be accounted for, or if the player needed to move while in a menu for whatever reason.
+                    </p>
+                    <p>
+                        My second idea was to tie the Input Map switching and cursor enabling in a way that would allow the Input Maps to be tracked. I planned to keep track of what Input Maps the player changed to with a Stack system. When I change the Input Map of the player, push the Input Map to a Stack and when I want to switch back to the previous Map, I pop the Stack back.
+                    </p>
+                </div>
+
+                <div class="block">
+                    <h4>The Result</h4>
+                    <p>
+                        By centralizing Input Map changing into a single Stack-based manager, the menu systems remained entirely decoupled while gaining far greater flexibility across the project. Instead of menus individually managing cursor states, the logic was bound directly to the current input map: entering a "UI" map automatically enables and reveals the cursor, while popping back to a "Player" map hides and locks it. This eliminated the soft-lock bug entirely.
+                    </p>
+                </div>
             </div>
         </div>
     </template>
 
     <template id="tpl-project-02">
-        <div class="modal-head">
-            <span class="p-index">02</span>
-            <div class="p-title">ECO Ranger</div>
-            <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
-            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
-        </div>
+        <figure class="modal-cover">
+            <img src="resources/thumb-eco-ranger.png" alt="ECO Ranger cover" loading="lazy">
+        </figure>
 
-        <div class="modal-meta">
-            <div class="meta-what">
-                <h5>What It Is</h5>
-                <p>Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
+        <div class="modal-content">
+            <div class="modal-head">
+                <div class="p-title">ECO Ranger</div>
+                <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
+                <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
             </div>
-            <div class="meta-grid">
-                <div class="meta-block">
-                    <h5>What I Did</h5>
-                    <p>Gameplay &amp; UI programming, plus audio integration with FMOD.</p>
+
+            <div class="modal-meta">
+                <div class="meta-what">
+                    <h5>What It Is</h5>
+                    <p>Eco Ranger is a fast-paced 3D third-person shooter where players play as Ekko, an alien eco-ranger who travels the universe to protect environments from the destructive Eco Breakers. Players must clean a chaotic park by sorting garbage with a teleport gun, dodging incoming trash attacks, managing rising contamination levels, and calling in his UFO to remove Eco Breakers before the mess overwhelms the area.</p>
                 </div>
-                <div class="meta-block">
-                    <h5>Team</h5>
-                    <p>6 Developers</p>
+                <div class="meta-grid">
+                    <div class="meta-block">
+                        <h5>What I Did</h5>
+                        <p>Gameplay &amp; UI programming, plus audio integration with FMOD.</p>
+                    </div>
+                    <div class="meta-block">
+                        <h5>Team</h5>
+                        <p>6 Developers</p>
+                    </div>
+                    <div class="meta-block">
+                        <h5>Duration</h5>
+                        <p>~6 Months</p>
+                    </div>
                 </div>
-                <div class="meta-block">
-                    <h5>Duration</h5>
-                    <p>~6 Months</p>
+            </div>
+
+            <div class="project-links">
+                <h5>Links</h5>
+                <div class="project-links-row">
+                    <a class="project-link-icon" href="https://vi-tran.itch.io/eco-ranger" target="_blank" aria-label="Visit ECO Ranger on itch.io">
+                        <img src="resources/itchio-logo-textless-black.png" alt="itch.io">
+                    </a>
                 </div>
             </div>
-        </div>
 
-        <div class="project-links">
-            <a href="https://vi-tran.itch.io/eco-ranger" target="_blank">Visit Itch Page ↗</a>
-        </div>
+            <p class="eyebrow">Case Study</p>
 
-        <p class="eyebrow">Case Study</p>
-
-        <div class="cs-tabs">
-            <button class="cs-tab is-active" type="button" data-case-target="cs-02-1" aria-pressed="true">
-                <span class="cs-tab-index">Case Study 1</span>
-                <span class="cs-tab-title">Waste-Type Lookup Table</span>
-            </button>
-            <!-- To add another case study for this project: duplicate the button above
-                 with a new data-case-target (e.g. "cs-02-2"), then duplicate the
-                 .case-study panel below with a matching data-case-panel and a
-                 hidden attribute. -->
-        </div>
-
-        <div class="case-study" data-case-panel="cs-02-1">
-            <div class="block">
-                <h4>The Problem</h4>
-                <p>
-                    Accessing garbage data cleanly and iteratively was inefficient and restrictive. Based on the type of garbage, I had to use an if-else chain or a switch statement every time I wanted to access data for a specific piece of waste, creating hard-to-maintain code for data that should have been tied together naturally.
-                </p>
+            <div class="cs-tabs">
+                <button class="cs-tab" type="button" data-case-target="cs-02-1" aria-pressed="false">
+                    <span class="cs-tab-index">Case Study 1</span>
+                    <span class="cs-tab-title">Waste-Type Lookup Table</span>
+                </button>
+                <!-- To add another case study for this project: duplicate the button above
+                     with a new data-case-target (e.g. "cs-02-2"), then duplicate the
+                     .case-study panel below with a matching data-case-panel and a
+                     hidden attribute. -->
             </div>
 
-            <div class="block">
-                <h4>The Approach</h4>
-                <p>
-                    To solve this problem, I wanted to find a way to access data cleanly without relying on long conditional chains.
-                </p>
-                <p>
-                    My first idea was to use the Garbage class that was already created, but that introduced problems with how we handled picking up garbage. When a player collected garbage by shooting it, the GameObject holding the Garbage class was destroyed. This meant we couldn't store references to the garbage objects in an array, as those references would be destroyed along with the garbage.
-                </p>
-                <p>
-                    My second idea was to pivot to a count system using individual variables for each waste type
-                    (int organicCount, int recyclableCount, int nonRecyclableCount).
-                    But this solution didn't sit right with me. Trying to access any data this way still required a condition for every type of garbage in the game, forcing long switch cases or chains of if-else statements.
-                </p>
-                <p>
-                    Since we already had a WasteType enum for the three garbage categories, I wanted a quick, scalable way to access the count data directly using that enum. To achieve this, I replaced the standalone variables with a Dictionary Lookup Table that mapped each WasteType enum key to its corresponding integer count value.
-                </p>
-            </div>
+            <div class="case-study" data-case-panel="cs-02-1" hidden>
+                <div class="block">
+                    <h4>The Problem</h4>
+                    <p>
+                        Accessing garbage data cleanly and iteratively was inefficient and restrictive. Based on the type of garbage, I had to use an if-else chain or a switch statement every time I wanted to access data for a specific piece of waste, creating hard-to-maintain code for data that should have been tied together naturally.
+                    </p>
+                </div>
 
-            <div class="block">
-                <h4>The Result</h4>
-                <p>
-                    The result of this lookup table was that accessing count data became much cleaner and more efficient throughout the entire project. All I had to do was pass the WasteType into the dictionary to retrieve or update the count. I loved the ease of Lookup Table’s that I ended up refining and using it in future projects (see Hand To Hand Wizardry Case Study 2).
-                </p>
+                <div class="block">
+                    <h4>The Approach</h4>
+                    <p>
+                        To solve this problem, I wanted to find a way to access data cleanly without relying on long conditional chains.
+                    </p>
+                    <p>
+                        My first idea was to use the Garbage class that was already created, but that introduced problems with how we handled picking up garbage. When a player collected garbage by shooting it, the GameObject holding the Garbage class was destroyed. This meant we couldn't store references to the garbage objects in an array, as those references would be destroyed along with the garbage.
+                    </p>
+                    <p>
+                        My second idea was to pivot to a count system using individual variables for each waste type
+                        (int organicCount, int recyclableCount, int nonRecyclableCount).
+                        But this solution didn't sit right with me. Trying to access any data this way still required a condition for every type of garbage in the game, forcing long switch cases or chains of if-else statements.
+                    </p>
+                    <p>
+                        Since we already had a WasteType enum for the three garbage categories, I wanted a quick, scalable way to access the count data directly using that enum. To achieve this, I replaced the standalone variables with a Dictionary Lookup Table that mapped each WasteType enum key to its corresponding integer count value.
+                    </p>
+                </div>
+
+                <div class="block">
+                    <h4>The Result</h4>
+                    <p>
+                        The result of this lookup table was that accessing count data became much cleaner and more efficient throughout the entire project. All I had to do was pass the WasteType into the dictionary to retrieve or update the count. I loved the ease of Lookup Table’s that I ended up refining and using it in future projects (see Hand To Hand Wizardry Case Study 2).
+                    </p>
+                </div>
             </div>
         </div>
     </template>
@@ -1209,20 +1344,50 @@
     <section id="experience">
         <div class="wrap">
             <div class="section-head">
-                <p class="eyebrow">Career</p>
-                <h2>Experience</h2>
+                <h2>Career Experience</h2>
                 <p>Where I've worked and what I focused on while I was there.</p>
             </div>
 
             <div class="exp-list">
                 <div class="exp-item">
-                    <div class="exp-when">[June 2025]<br>–<br>[August 2025]</div>
+                    <div class="exp-when-col">
+                        <div class="exp-when">Jun 2025 – Aug 2025</div>
+                        <img class="exp-logo" src="resources/logo-larche-winnipeg.jpg" alt="L'Arche Winnipeg logo">
+                    </div>
                     <div>
                         <div class="exp-role">Garden Coordinator</div>
-                        <div class="exp-org">L'arche Winnipeg</div>
+                        <div class="exp-org">L'Arche Winnipeg</div>
                         <ul class="exp-points">
-                            <li>My role involved Inspecting and maintaing garden condictions throughout all L'Arche Winnipeg Homes. I supported daily operations through physical labour, organized outdoor events for core memebers, andassited Home Workers with various miscellaneous tasks.</li>
+                            <li>Inspected and maintained garden conditions across all L'Arche Winnipeg homes.</li>
+                            <li>Supported daily operations through physical labour and organized outdoor events for core members.</li>
+                            <li>Assisted Home Workers with a variety of day-to-day tasks.</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Education</h2>
+                <p>Where I studied and the program that shaped how I build.</p>
+            </div>
+
+            <!-- Fill in your real dates / institution / program below.
+                 Add more .exp-item blocks here for additional entries — they'll
+                 stack with the same divider style as the Career Experience list. -->
+            <div class="exp-list">
+                <div class="exp-item">
+                    <div class="exp-when-col">
+                        <div class="exp-when">Aug 2025 – Aug 2026</div>
+                        <img class="exp-logo" src="resources/logo-vfs.png" alt="Vancouver Film School logo">
+                    </div>
+                    <div>
+                        <div class="exp-role">Vancouver Film School</div>
+                        <div class="exp-org">Programming for Games, Web, and Mobile</div>
+                        <p class="exp-desc">Over my time at VFS I studied many subjects on programming and computer science in general with the main focus being games. I also studied Web Development, learning HTML, JS, and then moving to React. I also studied Mobile development with React Native and Unity for Mobile</p>
                     </div>
                 </div>
             </div>
@@ -1231,7 +1396,6 @@
 
     <section id="contact">
         <div class="wrap">
-            <p class="eyebrow">Contact</p>
             <h2>Let's build something together.</h2>
 
             <div class="contact-email-row">
@@ -1241,7 +1405,19 @@
                         <path d="M3 6.5l9 6.5 9-6.5"></path>
                     </svg>
                 </a>
-                <button class="contact-email" type="button" data-email="vitritran06@outlook.com" aria-live="polite">vitritran06@outlook.com</button>
+                <button class="contact-email" type="button" data-email="vitritran06@outlook.com">
+                    <span class="contact-email-text">vitritran06@outlook.com</span>
+                    <span class="contact-email-icon-wrap">
+                        <svg class="contact-email-copy-icon icon-copy" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="9" y="9" width="12" height="12" rx="1.5"></rect>
+                            <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <svg class="contact-email-copy-icon icon-check" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="4 12 9 17 20 6"></polyline>
+                        </svg>
+                        <span class="copy-tooltip" aria-live="polite"></span>
+                    </span>
+                </button>
             </div>
 
             <div class="social-row">
@@ -1281,10 +1457,11 @@
 
             if (!overlay || !body || !closeBtn) return;
 
-            // A project can hold multiple case studies. Each .cs-tabs group
-            // controls a set of sibling .case-study panels: clicking a tab
-            // shows its matching panel (matched by data-case-target /
-            // data-case-panel) and hides the rest.
+            // A project can hold multiple case studies, none open by default.
+            // Each .cs-tabs group controls a set of sibling .case-study panels:
+            // clicking an inactive tab opens its matching panel (matched by
+            // data-case-target / data-case-panel) and closes any other panel
+            // in the same group; clicking the already-open tab closes it again.
             function initCaseStudyTabs(container) {
                 var groups = container.querySelectorAll('.cs-tabs');
                 groups.forEach(function (group) {
@@ -1292,15 +1469,17 @@
                     tabs.forEach(function (tab) {
                         tab.addEventListener('click', function () {
                             var targetId = tab.getAttribute('data-case-target');
+                            var alreadyOpen = tab.classList.contains('is-active');
 
                             tabs.forEach(function (t) {
-                                var isActive = t === tab;
+                                var isActive = !alreadyOpen && t === tab;
                                 t.classList.toggle('is-active', isActive);
                                 t.setAttribute('aria-pressed', isActive ? 'true' : 'false');
                             });
 
                             container.querySelectorAll('.case-study[data-case-panel]').forEach(function (panel) {
-                                panel.hidden = panel.getAttribute('data-case-panel') !== targetId;
+                                var shouldShow = !alreadyOpen && panel.getAttribute('data-case-panel') === targetId;
+                                panel.hidden = !shouldShow;
                             });
                         });
                     });
@@ -1359,26 +1538,31 @@
         })();
 
         // Email address is a copy-to-clipboard button (the envelope icon
-        // next to it is the actual mailto: link).
+        // next to it is the actual mailto: link). The email text itself
+        // never changes — only the copy icon swaps to a checkmark and a
+        // small "Copied" label appears beside it for a moment. Only the
+        // raw email address (from data-email) is ever written to the
+        // clipboard.
         (function () {
             var emailBtn = document.querySelector('.contact-email');
-            if (!emailBtn) return;
+            var tooltip = emailBtn ? emailBtn.querySelector('.copy-tooltip') : null;
+            if (!emailBtn || !tooltip) return;
 
-            var originalLabel = emailBtn.textContent.trim();
             var resetTimer = null;
 
             function showCopied() {
-                emailBtn.textContent = 'Copied ✓';
                 emailBtn.classList.add('is-copied');
+                tooltip.textContent = 'Copied';
                 clearTimeout(resetTimer);
                 resetTimer = setTimeout(function () {
-                    emailBtn.textContent = originalLabel;
                     emailBtn.classList.remove('is-copied');
+                    tooltip.textContent = '';
                 }, 1600);
             }
 
             emailBtn.addEventListener('click', function () {
-                var email = emailBtn.getAttribute('data-email') || originalLabel;
+                var email = emailBtn.getAttribute('data-email');
+                if (!email) return;
 
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(email).then(showCopied, showCopied);
