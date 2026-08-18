@@ -11,9 +11,9 @@
               :root {
                   --ink: #16130F;
                   --paper: #FAFAF7;
-                  --coffee: #3E2C1C;
-                  --coffee-deep: #2A1D12;
-                  --tan: #C7A97D;
+                  --coffee: #412920;
+                  --coffee-deep: #2A1B15;
+                  --tan: #C19A6B;
                   --line: #E3DFD7;
                   --card: #F1EEE6;
                   --card-hover: #EAE5D9;
@@ -438,7 +438,6 @@
                   align-items: flex-start;
                   justify-content: center;
                   padding: 72px 24px;
-                  overflow-y: auto;
                   z-index: 300;
               }
 
@@ -457,8 +456,22 @@
                   box-shadow: 0 24px 64px rgba(22,19,15,0.3);
                   width: 100%;
                   max-width: 700px;
+                  max-height: calc(100vh - 144px);
                   padding: 0;
-                  overflow: hidden;
+                  overflow-y: auto;
+                  overflow-x: hidden;
+                  overscroll-behavior: contain;
+                  -webkit-overflow-scrolling: touch;
+              }
+
+              /* Zero-height sticky wrapper so the close button pins to the top of
+                 the panel's own scroll area without pushing content down. */
+              .modal-close-bar {
+                  position: sticky;
+                  top: 0;
+                  height: 0;
+                  z-index: 20;
+                  pointer-events: none;
               }
 
               .modal-cover {
@@ -496,6 +509,7 @@
                   font-size: 1.15rem;
                   line-height: 1;
                   cursor: pointer;
+                  pointer-events: auto;
                   transition: background 0.15s ease, color 0.15s ease;
               }
 
@@ -599,6 +613,12 @@
                   flex-wrap: wrap;
                   gap: 12px;
                   margin-bottom: 28px;
+                  position: sticky;
+                  top: 64px;
+                  z-index: 15;
+                  background: var(--paper);
+                  padding: 10px 0;
+                  border-bottom: 1px solid var(--line);
               }
 
               .cs-tab {
@@ -829,9 +849,10 @@
 
               .copy-tooltip {
                   position: absolute;
-                  left: calc(100% + 8px);
-                  top: 50%;
-                  transform: translateY(-50%);
+                  right: 0;
+                  left: auto;
+                  bottom: calc(100% + 10px);
+                  top: auto;
                   font-family: var(--mono);
                   font-size: 0.7rem;
                   letter-spacing: 0.08em;
@@ -947,6 +968,14 @@
                       padding: 44px 14px;
                   }
 
+                  .modal-panel {
+                      max-height: calc(100vh - 88px);
+                  }
+
+                  .cs-tabs {
+                      top: 58px;
+                  }
+
                   .modal-content {
                       padding: 32px 22px;
                   }
@@ -979,9 +1008,9 @@
             <span class="wordmark">Vi Tran</span>
             <div class="navlinks">
                 <a href="#about">About</a>
+                <a href="#projects">Projects</a>
                 <a href="#experience">Experience</a>
                 <a href="#education">Education</a>
-                <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -1407,7 +1436,7 @@
 
     <section id="contact">
         <div class="wrap">
-            <h2>Let's build something together.</h2>
+            <h2>Contact Me !</h2>
 
             <div class="contact-email-row">
                 <a class="email-icon" href="mailto:vitritran06@outlook.com" aria-label="Email Vi Tran">
@@ -1449,9 +1478,11 @@
     <!-- Project detail modal — content is injected from the <template> tags above -->
     <div class="modal-overlay" id="projectOverlay" aria-hidden="true">
         <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Project details">
-            <button class="modal-close" id="modalClose" type="button" aria-label="Close project details">
-                <span aria-hidden="true">×</span>
-            </button>
+            <div class="modal-close-bar">
+                <button class="modal-close" id="modalClose" type="button" aria-label="Close project details">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
@@ -1462,11 +1493,12 @@
         // click-outside / Escape-to-close.
         (function () {
             var overlay = document.getElementById('projectOverlay');
+            var panel = overlay ? overlay.querySelector('.modal-panel') : null;
             var body = document.getElementById('modalBody');
             var closeBtn = document.getElementById('modalClose');
             var lastFocused = null;
 
-            if (!overlay || !body || !closeBtn) return;
+            if (!overlay || !panel || !body || !closeBtn) return;
 
             // A project can hold multiple case studies, none open by default.
             // Each .cs-tabs group controls a set of sibling .case-study panels:
@@ -1509,6 +1541,7 @@
                 overlay.classList.add('is-open');
                 overlay.setAttribute('aria-hidden', 'false');
                 document.body.classList.add('modal-open');
+                panel.scrollTop = 0;
                 closeBtn.focus();
             }
 
