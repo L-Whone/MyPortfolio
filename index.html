@@ -518,6 +518,49 @@
                       color: var(--paper);
                   }
 
+              /* Zero-height sticky wrapper anchored to the bottom of the panel's
+                 own scroll area, so the "close case study" button follows the
+                 user as they scroll through an open case study. The button
+                 itself is only shown while a case study panel is expanded. */
+              .modal-bottom-bar {
+                  position: sticky;
+                  bottom: 0;
+                  height: 0;
+                  z-index: 15;
+                  pointer-events: none;
+              }
+
+              .case-study-close {
+                  position: absolute;
+                  left: 50%;
+                  bottom: 20px;
+                  transform: translateX(-50%);
+                  display: none;
+                  align-items: center;
+                  gap: 8px;
+                  padding: 10px 22px;
+                  border: 1px solid var(--ink);
+                  background: var(--ink);
+                  color: var(--paper);
+                  font-family: var(--mono);
+                  font-size: 0.78rem;
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
+                  cursor: pointer;
+                  pointer-events: auto;
+                  box-shadow: 0 8px 20px rgba(22,19,15,0.25);
+                  transition: background 0.15s ease, color 0.15s ease;
+              }
+
+                  .case-study-close.is-visible {
+                      display: inline-flex;
+                  }
+
+                  .case-study-close:hover {
+                      background: var(--coffee);
+                      border-color: var(--coffee);
+                  }
+
               .modal-head {
                   padding-bottom: 24px;
                   margin-bottom: 28px;
@@ -613,12 +656,6 @@
                   flex-wrap: wrap;
                   gap: 12px;
                   margin-bottom: 28px;
-                  position: sticky;
-                  top: 64px;
-                  z-index: 15;
-                  background: var(--paper);
-                  padding: 10px 0;
-                  border-bottom: 1px solid var(--line);
               }
 
               .cs-tab {
@@ -972,10 +1009,6 @@
                       max-height: calc(100vh - 88px);
                   }
 
-                  .cs-tabs {
-                      top: 58px;
-                  }
-
                   .modal-content {
                       padding: 32px 22px;
                   }
@@ -1068,117 +1101,6 @@
                     <div class="p-tagline">Garbage Collecting Space Ranger fights off Garbage Loving Aliens ?</div>
                     <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span><span>FMOD</span></div>
                 </article>
-
-                <!-- PROJECT 03 — currently disabled. To re-enable: uncomment, fill in the
-                     placeholders, and add a matching <article class="project-card"> above
-                     (copy the pattern used for 01 / 02, including a .pc-thumb image)
-                     pointing at tpl-project-03.
-
-                     This example also shows the pattern for a SECOND case study on the
-                     same project: duplicate the .cs-tab button (give it a new
-                     data-case-target) and duplicate the .case-study panel (give it a
-                     matching data-case-panel and a hidden attribute) for each additional
-                     case study. Neither case study is open by default — hidden stays on
-                     both panels until the visitor clicks a tab.
-
-                <template id="tpl-project-03">
-                    <figure class="modal-cover">
-                        <img src="resources/thumb-blade-of-justice.jpg" alt="Blade Of Justice cover" loading="lazy">
-                    </figure>
-
-                    <div class="modal-content">
-                        <div class="modal-head">
-                            <div class="p-title">Blade Of Justice</div>
-                            <div class="p-tagline">A turn based Lawyer RPG</div>
-                            <div class="p-tags"><span>Gameplay Programming</span><span>UI Programming</span><span>Unity</span></div>
-                        </div>
-
-                        <div class="modal-meta">
-                            <div class="meta-what">
-                                <h5>What It Is</h5>
-                                <p>Blade of Justice is a Third-Person turn-based combat, puzzle game. You play as Alexander Aspect, a lawyer that is chosen by the God of Justice, to be her idol and enact Justice on her behalf.</p>
-                            </div>
-                            <div class="meta-grid">
-                                <div class="meta-block">
-                                    <h5>What I Did</h5>
-                                    <p>Gameplay &amp; UI programming.</p>
-                                </div>
-                                <div class="meta-block">
-                                    <h5>Team</h5>
-                                    <p>[Team size]</p>
-                                </div>
-                                <div class="meta-block">
-                                    <h5>Duration</h5>
-                                    <p>~6 Months</p>
-                                </div>
-                            </div>
-                            <figure class="media">
-                                <iframe src="https://www.youtube.com/embed/OkGgPrjYfVk"
-                                        title="A short trailer of the game"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin"
-                                        allowfullscreen
-                                        loading="lazy">
-                                </iframe>
-                                <figcaption>A short trailer of the game</figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="project-links">
-                            <h5>Links</h5>
-                            <div class="project-links-row">
-                                <a class="project-link-icon" href="#" target="_blank" aria-label="Visit Blade Of Justice on itch.io">
-                                    <img src="resources/itchio-logo-textless-black.png" alt="itch.io">
-                                </a>
-                            </div>
-                        </div>
-
-                        <p class="eyebrow">Case Study</p>
-
-                        <div class="cs-tabs">
-                            <button class="cs-tab" type="button" data-case-target="cs-03-1" aria-pressed="false">
-                                <span class="cs-tab-index">Case Study 1</span>
-                                <span class="cs-tab-title">Design Token Cleanup</span>
-                            </button>
-                            <button class="cs-tab" type="button" data-case-target="cs-03-2" aria-pressed="false">
-                                <span class="cs-tab-index">Case Study 2</span>
-                                <span class="cs-tab-title">[Second Case Study Title]</span>
-                            </button>
-                        </div>
-
-                        <div class="case-study" data-case-panel="cs-03-1" hidden>
-                            <div class="block">
-                                <h4>The Problem</h4>
-                                <p>Three product teams were rebuilding the same button in three different files, and nobody agreed on what "primary" meant. Design QA was catching the same ten mistakes on every release, and fixing them was starting to feel like the whole job.</p>
-                            </div>
-                            <div class="block">
-                                <h4>The Approach</h4>
-                                <p>I audited every existing component, cut the set from 140 to 38, and paired every token with a plain-language rule for when to use it — not just what it looked like.</p>
-                                <p>Documentation lived next to the components themselves, inside Figma, so nobody had to leave the file they were already working in to find the rule they needed.</p>
-                            </div>
-                            <div class="block">
-                                <h4>The Result</h4>
-                                <p>New feature handoff time dropped by roughly half, and the system is now the default starting point for every new internal tool, not just the three original products.</p>
-                            </div>
-                        </div>
-
-                        <div class="case-study" data-case-panel="cs-03-2" hidden>
-                            <div class="block">
-                                <h4>The Problem</h4>
-                                <p>[Describe the second problem here.]</p>
-                            </div>
-                            <div class="block">
-                                <h4>The Approach</h4>
-                                <p>[Describe the second approach here.]</p>
-                            </div>
-                            <div class="block">
-                                <h4>The Result</h4>
-                                <p>[Describe the second result here.]</p>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                -->
 
             </div>
         </div>
@@ -1484,6 +1406,11 @@
                 </button>
             </div>
             <div class="modal-body" id="modalBody"></div>
+            <div class="modal-bottom-bar">
+                <button class="case-study-close" id="caseStudyClose" type="button" aria-label="Close case study">
+                    <span aria-hidden="true">×</span> Close case study
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1496,9 +1423,18 @@
             var panel = overlay ? overlay.querySelector('.modal-panel') : null;
             var body = document.getElementById('modalBody');
             var closeBtn = document.getElementById('modalClose');
+            var caseStudyCloseBtn = document.getElementById('caseStudyClose');
             var lastFocused = null;
 
             if (!overlay || !panel || !body || !closeBtn) return;
+
+            // Shows the floating "Close case study" button whenever any case
+            // study panel is currently expanded, hides it otherwise.
+            function updateCaseStudyCloseVisibility() {
+                if (!caseStudyCloseBtn) return;
+                var hasOpenCaseStudy = !!body.querySelector('.case-study[data-case-panel]:not([hidden])');
+                caseStudyCloseBtn.classList.toggle('is-visible', hasOpenCaseStudy);
+            }
 
             // A project can hold multiple case studies, none open by default.
             // Each .cs-tabs group controls a set of sibling .case-study panels:
@@ -1524,6 +1460,8 @@
                                 var shouldShow = !alreadyOpen && panel.getAttribute('data-case-panel') === targetId;
                                 panel.hidden = !shouldShow;
                             });
+
+                            updateCaseStudyCloseVisibility();
                         });
                     });
                 });
@@ -1536,6 +1474,7 @@
                 body.innerHTML = '';
                 body.appendChild(tpl.content.cloneNode(true));
                 initCaseStudyTabs(body);
+                updateCaseStudyCloseVisibility();
 
                 lastFocused = trigger || document.activeElement;
                 overlay.classList.add('is-open');
@@ -1552,6 +1491,7 @@
                 overlay.setAttribute('aria-hidden', 'true');
                 document.body.classList.remove('modal-open');
                 body.innerHTML = '';
+                if (caseStudyCloseBtn) caseStudyCloseBtn.classList.remove('is-visible');
 
                 if (lastFocused && typeof lastFocused.focus === 'function') {
                     lastFocused.focus();
@@ -1571,6 +1511,16 @@
             });
 
             closeBtn.addEventListener('click', closeModal);
+
+            // Clicking the floating bottom button closes whichever case study
+            // is currently open, by re-triggering its own tab (same toggle
+            // logic as clicking an active tab directly).
+            if (caseStudyCloseBtn) {
+                caseStudyCloseBtn.addEventListener('click', function () {
+                    var activeTab = body.querySelector('.cs-tab.is-active');
+                    if (activeTab) activeTab.click();
+                });
+            }
 
             overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) closeModal();
